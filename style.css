@@ -1,1 +1,263 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #090608;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
+}
+
+.screen {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255, 105, 180, 0.12),
+            transparent 45%
+        ),
+        #090608;
+}
+
+.intro-content {
+    text-align: center;
+    width: 90%;
+    max-width: 700px;
+}
+
+.intro-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.25;
+    min-height: 120px;
+
+    text-shadow:
+        0 0 15px rgba(255, 120, 190, 0.4);
+}
+
+.lock-area {
+    margin-top: 30px;
+    animation: appear 1.5s ease forwards;
+}
+
+.hidden {
+    display: none;
+}
+
+.lock-message {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: #e9c8d9;
+    margin-bottom: 35px;
+}
+
+.lock-button {
+    position: relative;
+
+    width: 150px;
+    height: 180px;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    transition: transform 0.3s ease;
+}
+
+.lock-button:hover {
+    transform: scale(1.05);
+}
+
+.lock-shackle {
+    position: absolute;
+
+    width: 75px;
+    height: 75px;
+
+    left: 37px;
+    top: 5px;
+
+    border: 10px solid #ff72b6;
+    border-bottom: none;
+
+    border-radius: 45px 45px 0 0;
+
+    filter:
+        drop-shadow(0 0 8px rgba(255, 90, 170, 0.8))
+        drop-shadow(0 0 20px rgba(255, 90, 170, 0.35));
+
+    transform-origin: 15px 65px;
+
+    transition: transform 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+.lock-body {
+    position: absolute;
+
+    width: 120px;
+    height: 100px;
+
+    left: 15px;
+    top: 65px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ff9acb,
+            #f45b9e 45%,
+            #c93678
+        );
+
+    box-shadow:
+        0 0 15px rgba(255, 90, 170, 0.7),
+        0 0 45px rgba(255, 90, 170, 0.35),
+        inset 0 2px 5px rgba(255,255,255,0.35);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lock-keyhole {
+    position: absolute;
+
+    width: 17px;
+    height: 25px;
+
+    background: #5b1838;
+
+    border-radius: 50% 50% 40% 40%;
+    
+    transform: translateY(-2px);
+}
+
+.lock-keyhole::after {
+    content: "";
+
+    position: absolute;
+
+    width: 8px;
+    height: 18px;
+
+    background: #5b1838;
+
+    left: 4.5px;
+    top: 13px;
+}
+
+.lock-heart {
+    position: absolute;
+
+    color: rgba(255,255,255,0.8);
+
+    font-size: 25px;
+
+    bottom: 12px;
+}
+
+.tap-text {
+    margin-top: 20px;
+
+    color: #b98a9f;
+
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+.unlocking .lock-shackle {
+    transform: rotate(-28deg);
+}
+
+.unlocking {
+    animation: unlockShake 0.5s ease;
+}
+
+.fade-out {
+    animation: fadeOut 1.3s ease forwards;
+}
+
+.hidden-section {
+    display: none;
+}
+
+.birthday-content {
+    text-align: center;
+}
+
+.birthday-content h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: #ff9dcc;
+
+    text-shadow:
+        0 0 20px rgba(255, 100, 180, 0.6);
+}
+
+.birthday-content p {
+    margin-top: 15px;
+    color: #d8b9c9;
+}
+
+.small-text {
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes unlockShake {
+
+    0% { transform: rotate(0); }
+
+    25% { transform: rotate(-3deg); }
+
+    50% { transform: rotate(3deg); }
+
+    75% { transform: rotate(-2deg); }
+
+    100% { transform: rotate(0); }
+
+}
+
+@keyframes fadeOut {
+
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+
+}
