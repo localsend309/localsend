@@ -1,6 +1,10 @@
 const introText = document.getElementById("introText");
 const lockArea = document.getElementById("lockArea");
 const lockButton = document.getElementById("lockButton");
+const pinDisplay = document.getElementById("pinDisplay");
+const pinMessage = document.getElementById("pinMessage");
+const keypad = document.getElementById("keypad");
+const deleteButton = document.getElementById("deleteButton");
 
 const introLines = [
     "wait...",
@@ -10,6 +14,10 @@ const introLines = [
 ];
 
 let lineIndex = 0;
+
+/* =========================
+   INTRO
+========================= */
 
 function showNextLine() {
 
@@ -41,31 +49,164 @@ function showNextLine() {
 showNextLine();
 
 
-lockButton.addEventListener("click", () => {
+/* =========================
+   PIN LOCK
+========================= */
 
-    if (lockButton.classList.contains("unlocking")) return;
+const correctPIN = "151124";
+let enteredPIN = "";
+let unlocking = false;
 
-    lockButton.classList.add("unlocking");
+
+/* Update the visible PIN */
+
+function updatePINDisplay() {
+
+    const dots = pinDisplay.querySelectorAll("span");
+
+    dots.forEach((dot, index) => {
+
+        if (index < enteredPIN.length) {
+            dot.textContent = enteredPIN[index];
+            dot.classList.add("filled");
+        } else {
+            dot.textContent = "";
+            dot.classList.remove("filled");
+        }
+
+    });
+}
+
+
+/* Number buttons */
+
+const numberButtons = keypad.querySelectorAll("[data-number]");
+
+numberButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        if (unlocking) return;
+
+        if (enteredPIN.length >= 6) return;
+
+        enteredPIN += button.dataset.number;
+
+        updatePINDisplay();
+
+        /* Check only after 6 digits */
+
+        if (enteredPIN.length === 6) {
+
+            if (enteredPIN === correctPIN) {
+
+                unlock();
+
+            } else {
+
+                wrongPIN();
+
+            }
+
+        }
+
+    });
+
+});
+
+
+/* Delete button */
+
+deleteButton.addEventListener("click", () => {
+
+    if (unlocking) return;
+
+    enteredPIN = enteredPIN.slice(0, -1);
+
+    pinMessage.textContent = "";
+
+    updatePINDisplay();
+
+});
+
+
+/* =========================
+   WRONG PIN
+========================= */
+
+function wrongPIN() {
+
+    lockButton.classList.add("wrong");
+    keypad.classList.add("wrong");
+
+    pinMessage.textContent = "that's not it... ♡";
+
+    setTimeout(() => {
+
+        lockButton.classList.remove("wrong");
+        keypad.classList.remove("wrong");
+
+        enteredPIN = "";
+
+        updatePINDisplay();
+
+        pinMessage.textContent = "";
+
+    }, 750);
+
+}
+
+
+/* =========================
+   CORRECT PIN
+========================= */
+
+function unlock() {
+
+    unlocking = true;
+
+    pinMessage.textContent = "you remembered... ♡";
+
+    keypad.classList.add("fade-away");
+
+    /* Slow lock opening */
+
+    setTimeout(() => {
+
+        lockButton.classList.add("unlocking");
+
+    }, 300);
+
+
+    /* Open the lock */
 
     setTimeout(() => {
 
         lockButton.classList.add("unlocked");
 
+    }, 1400);
+
+
+    /* Fade into next scene */
+
+    setTimeout(() => {
+
         document.getElementById("intro").classList.add("fade-out");
 
-        setTimeout(() => {
+    }, 2800);
 
-            document.getElementById("intro").style.display = "none";
 
-            const birthday =
-                document.getElementById("birthday");
+    setTimeout(() => {
 
-            birthday.classList.remove("hidden-section");
+        document.getElementById("intro").style.display = "none";
 
-            birthday.style.display = "flex";
+        const afterLock =
+            document.getElementById("afterLock");
 
-        }, 1300);
+        afterLock.classList.remove("hidden-section");
 
-    }, 900);
+        afterLock.style.display = "flex";
 
-});
+    }, 4100);
+
+}
