@@ -1,11 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Happy Birthday ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Something Special ♡</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Happy Birthday ❤️</h1>
-    <p>I made something special for you.</p>
+
+    <!-- INTRO -->
+    <section id="intro" class="screen">
+
+        <div class="intro-content">
+
+            <p id="introText" class="intro-text"></p>
+
+            <div id="lockArea" class="lock-area hidden">
+
+                <p class="lock-message">
+                    I think there's something waiting for you...
+                </p>
+
+                <button id="lockButton" class="lock-button" aria-label="Unlock">
+                    
+                    <div class="lock-shackle"></div>
+
+                    <div class="lock-body">
+                        <div class="lock-keyhole"></div>
+                        <div class="lock-heart">♡</div>
+                    </div>
+
+                </button>
+
+                <p class="tap-text">
+                    tap the lock ♡
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- NEXT SECTION -->
+    <section id="birthday" class="screen hidden-section">
+
+        <div class="birthday-content">
+
+            <p class="small-text">you unlocked it...</p>
+
+            <h1>Happy Birthday ♡</h1>
+
+            <p>
+                But this is only the beginning.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <script src="script.js"></script>
+
 </body>
 </html>
