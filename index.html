@@ -19,26 +19,64 @@
 
             <div id="lockArea" class="lock-area hidden">
 
-                <p class="lock-message">
-                    I think there's something waiting for you...
-                </p>
+    <p class="lock-message">
+        I think there's something waiting for you...
+    </p>
 
-                <button id="lockButton" class="lock-button" aria-label="Unlock">
-                    
-                    <div class="lock-shackle"></div>
+    <!-- PADLOCK -->
+    <div id="lockButton" class="lock-button" aria-label="PIN Lock">
 
-                    <div class="lock-body">
-                        <div class="lock-keyhole"></div>
-                        <div class="lock-heart">♡</div>
-                    </div>
+        <div class="lock-shackle"></div>
 
-                </button>
+        <div class="lock-body">
+            <div class="lock-keyhole"></div>
+            <div class="lock-heart">♡</div>
+        </div>
 
-                <p class="tap-text">
-                    tap the lock ♡
-                </p>
+    </div>
 
-            </div>
+
+    <!-- PIN DISPLAY -->
+    <div id="pinDisplay" class="pin-display">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+
+    <!-- NUMBER KEYPAD -->
+    <div id="keypad" class="keypad">
+
+        <button data-number="1">1</button>
+        <button data-number="2">2</button>
+        <button data-number="3">3</button>
+
+        <button data-number="4">4</button>
+        <button data-number="5">5</button>
+        <button data-number="6">6</button>
+
+        <button data-number="7">7</button>
+        <button data-number="8">8</button>
+        <button data-number="9">9</button>
+
+        <button class="empty-key"></button>
+        <button data-number="0">0</button>
+        <button id="deleteButton">⌫</button>
+
+    </div>
+
+
+    <!-- ANNIVERSARY HINT -->
+    <p class="pin-hint">
+        hint: <span>our anniversary ♡</span>
+    </p>
+
+    <p id="pinMessage" class="pin-message"></p>
+
+</div>
 
         </div>
 
