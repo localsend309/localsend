@@ -1,199 +1,35 @@
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Something Special ♡</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Test</title>
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background: #fff0f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            color: #7a4055;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+    </style>
 </head>
 
 <body>
-
-    <!-- =========================
-         INTRO
-    ========================== -->
-
-    <section id="intro" class="screen">
-
-        <div class="intro-content">
-
-            <p id="introText" class="intro-text"></p>
-
-            <div id="lockArea" class="lock-area hidden">
-
-                <p class="lock-message">
-                    I think there's something waiting for you...
-                </p>
-
-                <div id="lockButton" class="lock-button" aria-label="PIN Lock">
-
-                    <div class="lock-shackle"></div>
-
-                    <div class="lock-body">
-                        <div class="lock-keyhole"></div>
-                        <div class="lock-heart">♡</div>
-                    </div>
-
-                </div>
-
-
-                <!-- PIN DISPLAY -->
-
-                <div id="pinDisplay" class="pin-display">
-
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-
-                </div>
-
-
-                <!-- KEYPAD -->
-
-                <div id="keypad" class="keypad">
-
-                    <button type="button" data-number="1">1</button>
-                    <button type="button" data-number="2">2</button>
-                    <button type="button" data-number="3">3</button>
-
-                    <button type="button" data-number="4">4</button>
-                    <button type="button" data-number="5">5</button>
-                    <button type="button" data-number="6">6</button>
-
-                    <button type="button" data-number="7">7</button>
-                    <button type="button" data-number="8">8</button>
-                    <button type="button" data-number="9">9</button>
-
-                    <button type="button" class="empty-key"></button>
-                    <button type="button" data-number="0">0</button>
-                    <button type="button" id="deleteButton">⌫</button>
-
-                </div>
-
-
-                <p class="pin-hint">
-                    hint: <span>our anniversary ♡</span>
-                </p>
-
-                <p id="pinMessage" class="pin-message"></p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         AFTER UNLOCK
-    ========================== -->
-
-    <section id="afterLock" class="screen hidden-section">
-
-        <div class="after-lock-content">
-
-            <p class="tiny-text">
-                okay...
-            </p>
-
-            <p class="begin-text">
-                now we can begin.
-            </p>
-
-            <p class="first-text">
-                but first...
-            </p>
-
-            <button type="button" id="enterButton" class="enter-button">
-                ♡ enter
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         ROMANTIC CARD
-    ========================== -->
-
-    <section id="romanticCard" class="romantic-card hidden-section">
-
-        <div class="card-glow"></div>
-
-        <div class="floating-petal petal-one">♡</div>
-        <div class="floating-petal petal-two">♡</div>
-        <div class="floating-petal petal-three">♡</div>
-        <div class="floating-petal petal-four">♡</div>
-
-
-        <div class="paper-card">
-
-            <div class="paper-frame"></div>
-
-
-            <div class="card-decoration top-decoration">
-                <span>♡</span>
-            </div>
-
-
-            <div class="card-content">
-
-                <div id="messageText" class="message-text"></div>
-
-                <span id="messageCursor" class="message-cursor">
-                    |
-                </span>
-
-            </div>
-
-
-            <div class="card-decoration bottom-decoration">
-                <span>♡</span>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         GUITAR VIDEO
-    ========================== -->
-
-    <section id="guitarScene" class="guitar-scene hidden-section">
-
-        <video
-            id="guitarVideo"
-            src="guitar.mp4"
-            playsinline
-            preload="auto">
-        </video>
-
-    </section>
-
-
-    <!-- =========================
-         AUDIO
-    ========================== -->
-
-    <audio
-        id="songAudio"
-        src="audio.mp3"
-        preload="auto">
-    </audio>
-
-
-    <!-- =========================
-         JAVASCRIPT
-    ========================== -->
-
-    <script src="script.js"></script>
-
+    <h1>THE WEBSITE IS WORKING ♡</h1>
 </body>
 </html>
 ```
