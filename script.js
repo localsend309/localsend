@@ -99,11 +99,8 @@ numberButtons.forEach(button => {
 
         updatePINDisplay();
 
-        // Check automatically after 6 digits
         if (enteredPIN.length === 6) {
-
             checkPIN();
-
         }
 
     });
@@ -112,7 +109,7 @@ numberButtons.forEach(button => {
 
 
 /* =========================
-   DELETE BUTTON
+   DELETE
 ========================= */
 
 deleteButton.addEventListener("click", () => {
@@ -155,17 +152,11 @@ function checkPIN() {
 
 function wrongPIN() {
 
-    // Shake lock
     lockButton.classList.add("wrong");
-
-    // Shake keypad
     keypad.classList.add("wrong");
-
-    // Shake PIN display
     pinDisplay.classList.add("wrong");
 
     pinMessage.textContent = "that's not it... ♡";
-
 
     setTimeout(() => {
 
@@ -173,7 +164,6 @@ function wrongPIN() {
         keypad.classList.remove("wrong");
         pinDisplay.classList.remove("wrong");
 
-        // Clear the wrong PIN
         enteredPIN = "";
 
         updatePINDisplay();
@@ -191,6 +181,11 @@ function wrongPIN() {
 
 function playUnlockSound() {
 
+    /*
+       Creates a two-part metallic-style
+       unlock sound using Web Audio.
+    */
+
     try {
 
         const AudioContext =
@@ -199,58 +194,104 @@ function playUnlockSound() {
 
         if (!AudioContext) return;
 
-        const audioContext = new AudioContext();
+        const audio =
+            new AudioContext();
 
-        const oscillator =
-            audioContext.createOscillator();
-
-        const gain =
-            audioContext.createGain();
+        if (audio.state === "suspended") {
+            audio.resume();
+        }
 
 
-        oscillator.type = "sine";
+        /* First click */
 
-        oscillator.frequency.setValueAtTime(
-            880,
-            audioContext.currentTime
+        const click1 =
+            audio.createOscillator();
+
+        const gain1 =
+            audio.createGain();
+
+        click1.type = "triangle";
+
+        click1.frequency.setValueAtTime(
+            1200,
+            audio.currentTime
         );
 
-        oscillator.frequency.exponentialRampToValueAtTime(
-            440,
-            audioContext.currentTime + 0.18
+        click1.frequency.exponentialRampToValueAtTime(
+            600,
+            audio.currentTime + 0.12
         );
 
-
-        gain.gain.setValueAtTime(
+        gain1.gain.setValueAtTime(
             0.0001,
-            audioContext.currentTime
+            audio.currentTime
         );
 
-        gain.gain.exponentialRampToValueAtTime(
-            0.12,
-            audioContext.currentTime + 0.02
+        gain1.gain.exponentialRampToValueAtTime(
+            0.22,
+            audio.currentTime + 0.01
         );
 
-        gain.gain.exponentialRampToValueAtTime(
+        gain1.gain.exponentialRampToValueAtTime(
             0.0001,
-            audioContext.currentTime + 0.3
+            audio.currentTime + 0.18
         );
 
+        click1.connect(gain1);
+        gain1.connect(audio.destination);
 
-        oscillator.connect(gain);
-        gain.connect(audioContext.destination);
+        click1.start();
+        click1.stop(audio.currentTime + 0.2);
 
 
-        oscillator.start();
+        /* Second softer click */
 
-        oscillator.stop(
-            audioContext.currentTime + 0.3
-        );
+        setTimeout(() => {
+
+            const click2 =
+                audio.createOscillator();
+
+            const gain2 =
+                audio.createGain();
+
+            click2.type = "triangle";
+
+            click2.frequency.setValueAtTime(
+                700,
+                audio.currentTime
+            );
+
+            click2.frequency.exponentialRampToValueAtTime(
+                350,
+                audio.currentTime + 0.15
+            );
+
+            gain2.gain.setValueAtTime(
+                0.0001,
+                audio.currentTime
+            );
+
+            gain2.gain.exponentialRampToValueAtTime(
+                0.16,
+                audio.currentTime + 0.01
+            );
+
+            gain2.gain.exponentialRampToValueAtTime(
+                0.0001,
+                audio.currentTime + 0.2
+            );
+
+            click2.connect(gain2);
+            gain2.connect(audio.destination);
+
+            click2.start();
+            click2.stop(audio.currentTime + 0.22);
+
+        }, 120);
 
     } catch (error) {
 
-        // If sound isn't supported,
-        // continue with the animation.
+        console.log("Unlock sound unavailable.");
 
     }
 
@@ -274,45 +315,47 @@ function unlock() {
         "you remembered... ♡";
 
 
-    /* Fade keypad away */
+    /* Make keypad disappear */
 
     keypad.classList.add("fade-away");
 
     pinDisplay.classList.add("fade-away");
 
 
-    /* Play unlock sound */
+    /*
+       Start the sound immediately
+    */
 
     playUnlockSound();
 
 
     /*
-        PHASE 1
-        Slowly begin opening the lock
+       PHASE 1
+       Lock begins opening
     */
 
     setTimeout(() => {
 
         lockButton.classList.add("unlocking");
 
-    }, 300);
+    }, 250);
 
 
     /*
-        PHASE 2
-        Lock grows and floats
+       PHASE 2
+       Lock becomes large and floats
     */
 
     setTimeout(() => {
 
         lockButton.classList.add("unlocked");
 
-    }, 1400);
+    }, 1300);
 
 
     /*
-        PHASE 3
-        Lock pops away
+       PHASE 3
+       Final dramatic pop
     */
 
     setTimeout(() => {
@@ -323,8 +366,8 @@ function unlock() {
 
 
     /*
-        PHASE 4
-        Fade out the intro
+       PHASE 4
+       Fade entire scene
     */
 
     setTimeout(() => {
@@ -333,12 +376,12 @@ function unlock() {
             .getElementById("intro")
             .classList.add("fade-out");
 
-    }, 3700);
+    }, 3600);
 
 
     /*
-        PHASE 5
-        Show next scene
+       PHASE 5
+       Next scene
     */
 
     setTimeout(() => {
