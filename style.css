@@ -13,13 +13,13 @@ body {
 }
 
 body {
-    font-family: "Georgia", serif;
+    font-family: Georgia, "Times New Roman", serif;
 }
 
 
-/* =========================
+/* ==============================
    INTRO
-========================= */
+============================== */
 
 #intro {
     position: fixed;
@@ -29,31 +29,31 @@ body {
     height: 100%;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     background:
         radial-gradient(
             circle at center,
-            #21181c 0%,
-            #100c0e 55%,
-            #070607 100%
+            #251a1f 0%,
+            #130e11 50%,
+            #080708 100%
         );
 
-    color: #f7e9ed;
+    color: #f6e8ed;
 
-    transition:
-        opacity 1s ease,
-        transform 1s ease;
+    opacity: 1;
+
+    transition: opacity 1s ease;
 }
 
 .intro-content {
+    position: relative;
+
     width: 100%;
     height: 100%;
 
     display: flex;
-
     flex-direction: column;
 
     align-items: center;
@@ -64,65 +64,75 @@ body {
     padding: 25px;
 }
 
-```css
+
+/* The intro text stays in the visual center */
+
 #introText {
-    position: absolute;
-
-    top: 50%;
-    left: 50%;
-
-    transform: translate(-50%, -50%);
-
     width: 90%;
     max-width: 900px;
 
-    text-align: center;
+    min-height: 50px;
 
-    min-height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
 
     font-size: clamp(24px, 4vw, 38px);
 
     line-height: 1.4;
 
-    z-index: 10;
+    margin: 0 auto;
 
     transition: opacity 0.4s ease;
 }
-```
+
+#introText span {
+    text-align: center;
+}
 
 .cursor {
+    display: inline-block;
+
+    margin-left: 4px;
+
     animation: blink 0.8s infinite;
 }
 
 @keyframes blink {
-    0%, 45% {
+    0%,
+    45% {
         opacity: 1;
     }
 
-    46%, 100% {
+    46%,
+    100% {
         opacity: 0;
     }
 }
 
 
-/* =========================
-   LOCK
-========================= */
+/* ==============================
+   LOCK AREA
+============================== */
 
 #lockArea {
-    margin-top: 38px;
+    width: 100%;
 
     display: flex;
-
     flex-direction: column;
 
     align-items: center;
+    justify-content: center;
+
+    margin-top: 35px;
 
     opacity: 0;
 
     pointer-events: none;
 
-    transition: opacity 1s ease;
+    transition: opacity 0.9s ease;
 }
 
 #lockArea.visible {
@@ -133,28 +143,34 @@ body {
 .lock-message {
     margin-bottom: 22px;
 
-    color: #bbaab0;
+    color: #b9a7ae;
 
     font-family: Arial, sans-serif;
 
     font-size: 11px;
 
     letter-spacing: 0.08em;
+
+    text-align: center;
 }
 
 
-/* PADLOCK */
+/* ==============================
+   LOCK
+============================== */
 
 .lock {
+    position: relative;
+
     width: 82px;
     height: 98px;
 
-    position: relative;
+    flex-shrink: 0;
 
     transform-origin: center;
 
     transition:
-        transform 0.5s ease,
+        transform 0.7s ease,
         opacity 0.5s ease;
 }
 
@@ -167,13 +183,11 @@ body {
     width: 46px;
     height: 48px;
 
-    border:
-        6px solid #d3aab7;
+    border: 6px solid #d3aab7;
 
     border-bottom: 0;
 
-    border-radius:
-        28px 28px 0 0;
+    border-radius: 28px 28px 0 0;
 
     transition:
         transform 1s ease;
@@ -212,11 +226,10 @@ body {
     top: 16px;
     left: 50%;
 
-    transform:
-        translateX(-50%);
-
     width: 9px;
     height: 17px;
+
+    transform: translateX(-50%);
 
     border-radius: 5px;
 
@@ -231,11 +244,10 @@ body {
     top: 8px;
     left: 50%;
 
-    transform:
-        translateX(-50%);
-
     width: 16px;
     height: 16px;
+
+    transform: translateX(-50%);
 
     border-radius: 50%;
 
@@ -248,8 +260,7 @@ body {
     bottom: 5px;
     left: 50%;
 
-    transform:
-        translateX(-50%);
+    transform: translateX(-50%);
 
     color: white;
 
@@ -257,19 +268,23 @@ body {
 }
 
 
-/* WRONG PIN */
+/* Wrong PIN */
 
 .lock.wrong {
     animation: shake 0.4s ease;
 }
 
-#keypad.wrong,
+#keypad.wrong {
+    animation: shake 0.4s ease;
+}
+
 #pinDisplay.wrong {
     animation: shake 0.4s ease;
 }
 
 @keyframes shake {
-    0%, 100% {
+    0%,
+    100% {
         transform: translateX(0);
     }
 
@@ -283,10 +298,10 @@ body {
 }
 
 
-/* UNLOCK */
+/* Unlock animation */
 
 .lock.unlocking {
-    transform: scale(1.15);
+    transform: scale(1.18);
 }
 
 .lock.unlocked .shackle {
@@ -302,43 +317,56 @@ body {
 @keyframes pop {
     0% {
         opacity: 1;
-        transform: scale(1.2);
+
+        transform:
+            scale(1.2);
     }
 
     35% {
-        transform: scale(1.5);
+        transform:
+            scale(1.5);
     }
 
     100% {
         opacity: 0;
+
         transform:
             scale(2.2)
             translateY(-20px);
+
         filter: blur(7px);
     }
 }
 
 
-/* =========================
-   PIN
-========================= */
+/* ==============================
+   PIN DISPLAY
+============================== */
 
 #pinDisplay {
     display: flex;
 
+    align-items: center;
+    justify-content: center;
+
     gap: 10px;
 
     margin-top: 23px;
+
+    transition: opacity 0.5s ease;
 }
 
 #pinDisplay span {
     width: 9px;
     height: 9px;
 
-    border:
-        1px solid #ad8b97;
+    border: 1px solid #ad8b97;
 
     border-radius: 50%;
+
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 #pinDisplay span.filled {
@@ -349,22 +377,27 @@ body {
             227,
             187,
             199,
-            0.4
+            0.45
         );
 }
 
 
-/* KEYPAD */
+/* ==============================
+   KEYPAD
+============================== */
 
 #keypad {
-    margin-top: 19px;
-
     display: grid;
 
     grid-template-columns:
         repeat(3, 56px);
 
     gap: 8px;
+
+    margin-top: 19px;
+
+    transition:
+        opacity 0.5s ease;
 }
 
 #keypad button {
@@ -393,6 +426,8 @@ body {
 
     font-family: Arial, sans-serif;
 
+    font-size: 15px;
+
     cursor: pointer;
 
     transition:
@@ -418,6 +453,11 @@ body {
     visibility: hidden;
 }
 
+
+/* ==============================
+   HINT
+============================== */
+
 .hint {
     margin-top: 20px;
 
@@ -428,6 +468,8 @@ body {
     font-size: 9px;
 
     letter-spacing: 0.07em;
+
+    text-align: center;
 }
 
 .hint span {
@@ -444,16 +486,17 @@ body {
     font-size: 14px;
 
     font-style: italic;
+
+    text-align: center;
 }
 
 
-/* =========================
+/* ==============================
    AFTER UNLOCK
-========================= */
+============================== */
 
 #afterLock {
     position: fixed;
-
     inset: 0;
 
     width: 100%;
@@ -464,16 +507,16 @@ body {
     align-items: center;
     justify-content: center;
 
-    text-align: center;
-
     background:
         radial-gradient(
             circle at center,
-            #21181c,
+            #251a1f,
             #080708
         );
 
     color: #f5e8ec;
+
+    text-align: center;
 }
 
 .after-content {
@@ -482,6 +525,7 @@ body {
     flex-direction: column;
 
     align-items: center;
+    justify-content: center;
 }
 
 .small-text {
@@ -541,16 +585,33 @@ body {
     font-size: 11px;
 
     cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+#enterButton:hover {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
+}
+
+#enterButton:active {
+    transform: scale(0.96);
 }
 
 
-/* =========================
+/* ==============================
    ROMANTIC CARD
-========================= */
+============================== */
 
 #romanticCard {
     position: fixed;
-
     inset: 0;
 
     width: 100%;
@@ -573,10 +634,10 @@ body {
 }
 
 .card {
+    position: relative;
+
     width: min(88vw, 760px);
     height: min(82vh, 680px);
-
-    position: relative;
 
     display: flex;
 
@@ -585,20 +646,7 @@ body {
 
     padding: 65px;
 
-    background:
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(
-                220,
-                170,
-                180,
-                0.08
-            ) 0 1px,
-            transparent 1px
-        ),
-        #fffaf5;
-
-    background-size: 20px 20px;
+    background: #fffaf5;
 
     border:
         1px solid rgba(
@@ -623,6 +671,7 @@ body {
 @keyframes cardOpen {
     from {
         opacity: 0;
+
         transform:
             scale(0.93)
             translateY(20px);
@@ -630,6 +679,7 @@ body {
 
     to {
         opacity: 1;
+
         transform:
             scale(1)
             translateY(0);
@@ -672,8 +722,7 @@ body {
 
     left: 50%;
 
-    transform:
-        translateX(-50%);
+    transform: translateX(-50%);
 
     color: #bd8997;
 
@@ -689,6 +738,7 @@ body {
 }
 
 .message-area {
+    width: 100%;
     max-width: 610px;
 
     text-align: center;
@@ -714,21 +764,25 @@ body {
 }
 
 
-/* FLOATING HEARTS */
+/* ==============================
+   FLOATING HEARTS
+============================== */
 
 .heart {
     position: absolute;
 
-    color: rgba(
-        170,
-        100,
-        120,
-        0.35
-    );
+    color:
+        rgba(
+            170,
+            100,
+            120,
+            0.35
+        );
 
     font-size: 22px;
 
-    animation: float 7s ease-in-out infinite;
+    animation:
+        float 7s ease-in-out infinite;
 }
 
 .heart1 {
@@ -739,23 +793,27 @@ body {
 .heart2 {
     top: 22%;
     right: 10%;
+
     animation-delay: 2s;
 }
 
 .heart3 {
     bottom: 15%;
     left: 9%;
+
     animation-delay: 3s;
 }
 
 .heart4 {
     bottom: 20%;
     right: 11%;
+
     animation-delay: 4s;
 }
 
 @keyframes float {
-    0%, 100% {
+    0%,
+    100% {
         transform: translateY(0);
         opacity: 0.25;
     }
@@ -767,13 +825,12 @@ body {
 }
 
 
-/* =========================
-   GUITAR
-========================= */
+/* ==============================
+   GUITAR VIDEO
+============================== */
 
 #guitarScene {
     position: fixed;
-
     inset: 0;
 
     width: 100%;
@@ -788,23 +845,35 @@ body {
 }
 
 #guitarVideo {
+    display: block;
+
     width: 100%;
     height: 100%;
 
     object-fit: contain;
-
-    display: block;
 }
 
 
-/* =========================
+/* ==============================
    MOBILE
-========================= */
+============================== */
 
 @media (max-width: 600px) {
 
     #introText {
+        width: 92%;
+
         font-size: 25px;
+
+        line-height: 1.4;
+    }
+
+    .intro-content {
+        padding: 20px;
+    }
+
+    #lockArea {
+        margin-top: 30px;
     }
 
     .lock-message {
@@ -835,11 +904,42 @@ body {
 
     .message-area {
         font-size: 17px;
+
         line-height: 1.5;
     }
 
     .heart {
         display: none;
+    }
+}
+
+
+/* ==============================
+   VERY SHORT SCREENS
+============================== */
+
+@media (max-height: 650px) {
+
+    #lockArea {
+        margin-top: 20px;
+    }
+
+    .lock {
+        transform: scale(0.82);
+        margin-top: -8px;
+        margin-bottom: -8px;
+    }
+
+    #pinDisplay {
+        margin-top: 12px;
+    }
+
+    #keypad {
+        margin-top: 12px;
+    }
+
+    .hint {
+        margin-top: 12px;
     }
 }
 ```
