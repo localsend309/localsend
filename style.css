@@ -64,13 +64,17 @@ body {
     padding: 25px;
 }
 
+```css
 #introText {
-    width: 100%;
-    max-width: 900px;
+    position: absolute;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 90%;
+    max-width: 900px;
 
     text-align: center;
 
@@ -79,7 +83,12 @@ body {
     font-size: clamp(24px, 4vw, 38px);
 
     line-height: 1.4;
+
+    z-index: 10;
+
+    transition: opacity 0.4s ease;
 }
+```
 
 .cursor {
     animation: blink 0.8s infinite;
