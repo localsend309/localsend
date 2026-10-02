@@ -3,10 +3,11 @@
    ELEMENTS
 ========================= */
 
+const intro = document.getElementById("intro");
 const introText = document.getElementById("introText");
 const lockArea = document.getElementById("lockArea");
-const lockButton = document.getElementById("lockButton");
 
+const lockButton = document.getElementById("lockButton");
 const pinDisplay = document.getElementById("pinDisplay");
 const pinMessage = document.getElementById("pinMessage");
 
@@ -16,23 +17,14 @@ const deleteButton = document.getElementById("deleteButton");
 const afterLock = document.getElementById("afterLock");
 const enterButton = document.getElementById("enterButton");
 
-const romanticCard =
-    document.getElementById("romanticCard");
+const romanticCard = document.getElementById("romanticCard");
+const guitarScene = document.getElementById("guitarScene");
 
-const guitarScene =
-    document.getElementById("guitarScene");
+const guitarVideo = document.getElementById("guitarVideo");
+const songAudio = document.getElementById("songAudio");
 
-const guitarVideo =
-    document.getElementById("guitarVideo");
-
-const songAudio =
-    document.getElementById("songAudio");
-
-const messageText =
-    document.getElementById("messageText");
-
-const messageCursor =
-    document.getElementById("messageCursor");
+const messageText = document.getElementById("messageText");
+const messageCursor = document.getElementById("messageCursor");
 
 
 /* =========================
@@ -48,64 +40,88 @@ const introLines = [
 
 let lineIndex = 0;
 
+
 function typeIntroLine(text, finished) {
 
     introText.innerHTML = "";
 
-    const textSpan =
-        document.createElement("span");
+    const textSpan = document.createElement("span");
 
-    const cursor =
-        document.createElement("span");
-
+    const cursor = document.createElement("span");
     cursor.className = "cursor";
     cursor.textContent = "|";
 
     introText.appendChild(textSpan);
     introText.appendChild(cursor);
 
-    let i = 0;
+    let characterIndex = 0;
 
-    function type() {
 
-        if (i < text.length) {
+    function typeCharacter() {
 
-            textSpan.textContent += text[i];
+        if (characterIndex < text.length) {
 
-            i++;
+            textSpan.textContent +=
+                text.charAt(characterIndex);
+
+            characterIndex++;
+
+            const character =
+                text.charAt(characterIndex - 1);
+
+            const delay =
+                character === " " ? 40 : 65;
 
             setTimeout(
-                type,
-                text[i - 1] === " " ? 40 : 65
+                typeCharacter,
+                delay
             );
 
         } else {
 
-            setTimeout(
-                finished,
-                1200
-            );
+            /*
+               Keep the completed line
+               on screen for a moment.
+            */
+
+            setTimeout(() => {
+
+                cursor.style.opacity = "0";
+
+                setTimeout(
+                    finished,
+                    350
+                );
+
+            }, 1200);
         }
     }
 
-    type();
+
+    typeCharacter();
 }
 
 
-function nextIntroLine() {
+function showNextIntroLine() {
 
     if (lineIndex >= introLines.length) {
+
+        /*
+           THIS is where the PIN appears.
+        */
 
         setTimeout(() => {
 
             lockArea.classList.add("visible");
 
-        }, 500);
+        }, 400);
 
         return;
     }
 
+
     introText.style.opacity = "0";
+
 
     setTimeout(() => {
 
@@ -113,7 +129,7 @@ function nextIntroLine() {
 
         typeIntroLine(
             introLines[lineIndex],
-            nextIntroLine
+            showNextIntroLine
         );
 
         lineIndex++;
@@ -122,11 +138,15 @@ function nextIntroLine() {
 }
 
 
-nextIntroLine();
+/*
+   Start the intro.
+*/
+
+showNextIntroLine();
 
 
 /* =========================
-   PIN
+   PIN SYSTEM
 ========================= */
 
 let enteredPIN = "";
@@ -140,12 +160,13 @@ function updatePIN() {
     const dots =
         pinDisplay.querySelectorAll("span");
 
+
     dots.forEach((dot, index) => {
 
         if (index < enteredPIN.length) {
 
             dot.textContent =
-                enteredPIN[index];
+                enteredPIN.charAt(index);
 
             dot.classList.add("filled");
 
@@ -159,45 +180,58 @@ function updatePIN() {
 }
 
 
-/* NUMBER BUTTONS */
+/* =========================
+   NUMBER BUTTONS
+========================= */
 
-keypad
-    .querySelectorAll("[data-number]")
-    .forEach(button => {
+const numberButtons =
+    keypad.querySelectorAll("[data-number]");
 
-        button.addEventListener(
-            "click",
-            () => {
 
-                if (unlocking) return;
+numberButtons.forEach(button => {
 
-                if (enteredPIN.length >= 6)
-                    return;
+    button.addEventListener(
+        "click",
+        () => {
 
-                enteredPIN +=
-                    button.dataset.number;
+            if (unlocking)
+                return;
 
-                updatePIN();
+            if (enteredPIN.length >= 6)
+                return;
 
-                if (enteredPIN.length === 6) {
 
-                    checkPIN();
-                }
+            enteredPIN +=
+                button.dataset.number;
+
+
+            updatePIN();
+
+
+            if (enteredPIN.length === 6) {
+
+                checkPIN();
             }
-        );
-    });
+        }
+    );
+});
 
 
-/* DELETE */
+/* =========================
+   DELETE
+========================= */
 
 deleteButton.addEventListener(
     "click",
     () => {
 
-        if (unlocking) return;
+        if (unlocking)
+            return;
+
 
         enteredPIN =
             enteredPIN.slice(0, -1);
+
 
         pinMessage.textContent = "";
 
@@ -206,9 +240,15 @@ deleteButton.addEventListener(
 );
 
 
-/* CHECK */
+/* =========================
+   CHECK PIN
+========================= */
 
 function checkPIN() {
+
+    if (enteredPIN.length !== 6)
+        return;
+
 
     if (enteredPIN === correctPIN) {
 
@@ -216,12 +256,17 @@ function checkPIN() {
 
     } else {
 
+        /*
+           Wrong PIN animation.
+        */
+
         lockButton.classList.add("wrong");
         keypad.classList.add("wrong");
         pinDisplay.classList.add("wrong");
 
         pinMessage.textContent =
             "that's not it... ♡";
+
 
         setTimeout(() => {
 
@@ -235,7 +280,7 @@ function checkPIN() {
 
             pinMessage.textContent = "";
 
-        }, 700);
+        }, 750);
     }
 }
 
@@ -246,43 +291,78 @@ function checkPIN() {
 
 function unlock() {
 
-    if (unlocking) return;
+    if (unlocking)
+        return;
+
 
     unlocking = true;
+
 
     pinMessage.textContent =
         "you remembered... ♡";
 
+
     keypad.style.opacity = "0";
     pinDisplay.style.opacity = "0";
 
+
+    /*
+       Make the lock grow.
+    */
+
     setTimeout(() => {
 
-        lockButton.classList.add("unlocking");
+        lockButton.classList.add(
+            "unlocking"
+        );
 
     }, 200);
 
+
+    /*
+       Open the shackle.
+    */
+
     setTimeout(() => {
 
-        lockButton.classList.add("unlocked");
+        lockButton.classList.add(
+            "unlocked"
+        );
 
     }, 1200);
 
+
+    /*
+       Make the lock disappear.
+    */
+
     setTimeout(() => {
 
-        lockButton.classList.add("pop");
+        lockButton.classList.add(
+            "pop"
+        );
 
     }, 3000);
 
+
+    /*
+       Fade away the intro.
+    */
+
     setTimeout(() => {
 
-        document.getElementById("intro").style.opacity = "0";
+        intro.style.opacity = "0";
 
     }, 3900);
 
+
+    /*
+       Move to the next scene.
+    */
+
     setTimeout(() => {
 
-        document.getElementById("intro").style.display = "none";
+        intro.style.display = "none";
 
         afterLock.style.display = "flex";
 
@@ -316,8 +396,12 @@ function typeBirthdayMessage() {
 
     messageText.textContent = "";
 
+    messageCursor.style.display = "inline";
+
+
     const duration =
         songAudio.duration;
+
 
     if (!duration || !isFinite(duration)) {
 
@@ -330,24 +414,38 @@ function typeBirthdayMessage() {
         return;
     }
 
-    let weight = 0;
 
-    for (const char of birthdayMessage) {
+    let totalWeight = 0;
 
-        if (char === "\n") {
-            weight += 25;
-        } else if (char === ".") {
-            weight += 9;
-        } else if (char === ",") {
-            weight += 4;
-        } else if (char === "♡") {
-            weight += 6;
-        } else if (char === " ") {
-            weight += 0.6;
+
+    for (const character of birthdayMessage) {
+
+        if (character === "\n") {
+
+            totalWeight += 25;
+
+        } else if (character === ".") {
+
+            totalWeight += 9;
+
+        } else if (character === ",") {
+
+            totalWeight += 4;
+
+        } else if (character === "♡") {
+
+            totalWeight += 6;
+
+        } else if (character === " ") {
+
+            totalWeight += 0.6;
+
         } else {
-            weight += 1;
+
+            totalWeight += 1;
         }
     }
+
 
     const targetTime =
         Math.max(
@@ -355,16 +453,20 @@ function typeBirthdayMessage() {
             duration - 0.4
         );
 
-    let currentWeight = 0;
-    let index = 0;
 
-    const start =
+    let currentWeight = 0;
+    let characterIndex = 0;
+
+    const startTime =
         performance.now();
 
 
     function typeCharacter() {
 
-        if (index >= birthdayMessage.length) {
+        if (
+            characterIndex >=
+            birthdayMessage.length
+        ) {
 
             messageCursor.style.display =
                 "none";
@@ -372,52 +474,82 @@ function typeBirthdayMessage() {
             return;
         }
 
-        const char =
-            birthdayMessage[index];
+
+        const character =
+            birthdayMessage.charAt(
+                characterIndex
+            );
+
 
         const progress =
-            currentWeight / weight;
+            currentWeight /
+            totalWeight;
+
 
         const targetElapsed =
-            progress * targetTime;
+            progress *
+            targetTime;
+
 
         const elapsed =
-            (performance.now() - start) / 1000;
+            (
+                performance.now() -
+                startTime
+            ) / 1000;
+
 
         let delay =
             Math.max(
                 5,
-                (targetElapsed - elapsed) * 1000
+                (
+                    targetElapsed -
+                    elapsed
+                ) * 1000
             );
 
-        if (char === ".")
+
+        if (character === ".")
             delay += 170;
 
-        if (char === ",")
+        if (character === ",")
             delay += 65;
 
-        if (char === "\n")
+        if (character === "\n")
             delay += 380;
 
 
-        messageText.textContent += char;
+        messageText.textContent +=
+            character;
 
 
-        if (char === "\n")
+        if (character === "\n") {
+
             currentWeight += 25;
-        else if (char === ".")
+
+        } else if (character === ".") {
+
             currentWeight += 9;
-        else if (char === ",")
+
+        } else if (character === ",") {
+
             currentWeight += 4;
-        else if (char === "♡")
+
+        } else if (character === "♡") {
+
             currentWeight += 6;
-        else if (char === " ")
+
+        } else if (character === " ") {
+
             currentWeight += 0.6;
-        else
+
+        } else {
+
             currentWeight += 1;
+        }
 
 
-        index++;
+        characterIndex++;
+
 
         setTimeout(
             typeCharacter,
@@ -425,12 +557,13 @@ function typeBirthdayMessage() {
         );
     }
 
+
     typeCharacter();
 }
 
 
 /* =========================
-   ENTER CARD
+   ENTER ROMANTIC CARD
 ========================= */
 
 enterButton.addEventListener(
@@ -439,29 +572,37 @@ enterButton.addEventListener(
 
         enterButton.disabled = true;
 
-        afterLock.style.display = "none";
 
-        romanticCard.style.display = "flex";
+        afterLock.style.display =
+            "none";
+
+
+        romanticCard.style.display =
+            "flex";
+
 
         /*
-           Load the video early.
+           Prepare guitar video
+           before the song finishes.
         */
 
         guitarVideo.load();
 
 
         /*
-           Start song.
+           Start audio.
         */
 
         songAudio.currentTime = 0;
 
-        const playPromise =
+
+        const audioPromise =
             songAudio.play();
 
-        if (playPromise) {
 
-            playPromise.catch(() => {
+        if (audioPromise) {
+
+            audioPromise.catch(() => {
 
                 console.log(
                     "Audio playback was blocked."
@@ -472,7 +613,7 @@ enterButton.addEventListener(
 
 
         /*
-           Start typewriter.
+           Start typing.
         */
 
         typeBirthdayMessage();
@@ -481,30 +622,37 @@ enterButton.addEventListener(
 
 
 /* =========================
-   SONG → GUITAR
+   AUDIO → GUITAR
 ========================= */
 
 songAudio.addEventListener(
     "ended",
     () => {
 
-        romanticCard.style.display = "none";
+        romanticCard.style.display =
+            "none";
 
-        guitarScene.style.display = "flex";
+
+        guitarScene.style.display =
+            "flex";
+
 
         /*
-           Start EXACTLY from the
-           beginning of guitar.mp4.
+           IMPORTANT:
+           Always start the guitar
+           video from exactly 0:00.
         */
 
         guitarVideo.currentTime = 0;
 
-        const playPromise =
+
+        const videoPromise =
             guitarVideo.play();
 
-        if (playPromise) {
 
-            playPromise.catch(() => {
+        if (videoPromise) {
+
+            videoPromise.catch(() => {
 
                 console.log(
                     "Video playback was blocked."
@@ -529,7 +677,7 @@ guitarVideo.addEventListener(
         );
 
         /*
-           Birthday finale goes here.
+           Finale will be added here.
         */
     }
 );
