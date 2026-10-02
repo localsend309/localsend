@@ -1,8 +1,15 @@
+```javascript
+/* =========================
+   ELEMENTS
+========================= */
+
 const introText = document.getElementById("introText");
 const lockArea = document.getElementById("lockArea");
 const lockButton = document.getElementById("lockButton");
+
 const pinDisplay = document.getElementById("pinDisplay");
 const pinMessage = document.getElementById("pinMessage");
+
 const keypad = document.getElementById("keypad");
 const deleteButton = document.getElementById("deleteButton");
 
@@ -40,13 +47,8 @@ const introLines = [
 ];
 
 let lineIndex = 0;
-let enteredPIN = "";
-let unlocking = false;
 
-const correctPIN = "151124";
-
-
-function typeLine(text, callback) {
+function typeIntroLine(text, finished) {
 
     introText.innerHTML = "";
 
@@ -56,65 +58,49 @@ function typeLine(text, callback) {
     const cursor =
         document.createElement("span");
 
-    cursor.className =
-        "typewriter-cursor";
-
+    cursor.className = "cursor";
     cursor.textContent = "|";
 
     introText.appendChild(textSpan);
     introText.appendChild(cursor);
 
-    let characterIndex = 0;
+    let i = 0;
 
-    function typeCharacter() {
+    function type() {
 
-        if (characterIndex < text.length) {
+        if (i < text.length) {
 
-            textSpan.textContent +=
-                text.charAt(characterIndex);
+            textSpan.textContent += text[i];
 
-            characterIndex++;
-
-            const delay =
-                text.charAt(characterIndex - 1) === " "
-                    ? 45
-                    : 65;
+            i++;
 
             setTimeout(
-                typeCharacter,
-                delay
+                type,
+                text[i - 1] === " " ? 40 : 65
             );
 
         } else {
 
-            setTimeout(() => {
-
-                cursor.classList.add(
-                    "cursor-fade"
-                );
-
-                setTimeout(
-                    callback,
-                    350
-                );
-
-            }, 1200);
+            setTimeout(
+                finished,
+                1200
+            );
         }
     }
 
-    typeCharacter();
+    type();
 }
 
 
-function showNextLine() {
+function nextIntroLine() {
 
     if (lineIndex >= introLines.length) {
 
         setTimeout(() => {
-            lockArea.classList.remove(
-                "hidden"
-            );
-        }, 700);
+
+            lockArea.classList.add("visible");
+
+        }, 500);
 
         return;
     }
@@ -125,88 +111,84 @@ function showNextLine() {
 
         introText.style.opacity = "1";
 
-        typeLine(
+        typeIntroLine(
             introLines[lineIndex],
-            showNextLine
+            nextIntroLine
         );
 
         lineIndex++;
 
-    }, 500);
+    }, 450);
 }
 
 
-showNextLine();
+nextIntroLine();
 
 
 /* =========================
-   PIN DISPLAY
+   PIN
 ========================= */
 
-function updatePINDisplay() {
+let enteredPIN = "";
+let unlocking = false;
 
-    const digits =
+const correctPIN = "151124";
+
+
+function updatePIN() {
+
+    const dots =
         pinDisplay.querySelectorAll("span");
 
-    digits.forEach((digit, index) => {
+    dots.forEach((dot, index) => {
 
         if (index < enteredPIN.length) {
 
-            digit.textContent =
+            dot.textContent =
                 enteredPIN[index];
 
-            digit.classList.add(
-                "filled"
-            );
+            dot.classList.add("filled");
 
         } else {
 
-            digit.textContent = "";
+            dot.textContent = "";
 
-            digit.classList.remove(
-                "filled"
-            );
+            dot.classList.remove("filled");
         }
     });
 }
 
 
-/* =========================
-   NUMBER BUTTONS
-========================= */
+/* NUMBER BUTTONS */
 
-const numberButtons =
-    keypad.querySelectorAll(
-        "[data-number]"
-    );
+keypad
+    .querySelectorAll("[data-number]")
+    .forEach(button => {
 
-numberButtons.forEach(button => {
+        button.addEventListener(
+            "click",
+            () => {
 
-    button.addEventListener(
-        "click",
-        () => {
+                if (unlocking) return;
 
-            if (unlocking) return;
+                if (enteredPIN.length >= 6)
+                    return;
 
-            if (enteredPIN.length >= 6)
-                return;
+                enteredPIN +=
+                    button.dataset.number;
 
-            enteredPIN +=
-                button.dataset.number;
+                updatePIN();
 
-            updatePINDisplay();
+                if (enteredPIN.length === 6) {
 
-            if (enteredPIN.length === 6) {
-                checkPIN();
+                    checkPIN();
+                }
             }
-        }
-    );
-});
+        );
+    });
 
 
-/* =========================
-   DELETE
-========================= */
+/* DELETE */
 
 deleteButton.addEventListener(
     "click",
@@ -219,19 +201,14 @@ deleteButton.addEventListener(
 
         pinMessage.textContent = "";
 
-        updatePINDisplay();
+        updatePIN();
     }
 );
 
 
-/* =========================
-   CHECK PIN
-========================= */
+/* CHECK */
 
 function checkPIN() {
-
-    if (enteredPIN.length !== 6)
-        return;
 
     if (enteredPIN === correctPIN) {
 
@@ -239,63 +216,32 @@ function checkPIN() {
 
     } else {
 
-        wrongPIN();
+        lockButton.classList.add("wrong");
+        keypad.classList.add("wrong");
+        pinDisplay.classList.add("wrong");
+
+        pinMessage.textContent =
+            "that's not it... ♡";
+
+        setTimeout(() => {
+
+            lockButton.classList.remove("wrong");
+            keypad.classList.remove("wrong");
+            pinDisplay.classList.remove("wrong");
+
+            enteredPIN = "";
+
+            updatePIN();
+
+            pinMessage.textContent = "";
+
+        }, 700);
     }
 }
 
 
 /* =========================
-   WRONG PIN
-========================= */
-
-function wrongPIN() {
-
-    lockButton.classList.add("wrong");
-    keypad.classList.add("wrong");
-    pinDisplay.classList.add("wrong");
-
-    pinMessage.textContent =
-        "that's not it... ♡";
-
-    setTimeout(() => {
-
-        lockButton.classList.remove("wrong");
-        keypad.classList.remove("wrong");
-        pinDisplay.classList.remove("wrong");
-
-        enteredPIN = "";
-
-        updatePINDisplay();
-
-        pinMessage.textContent = "";
-
-    }, 750);
-}
-
-
-/* =========================
-   UNLOCK SOUND
-========================= */
-
-function playUnlockSound() {
-
-    const unlockSound =
-        new Audio("unlock.wav");
-
-    unlockSound.volume = 0.75;
-
-    unlockSound.currentTime = 0;
-
-    unlockSound.play().catch(() => {
-        console.log(
-            "Unlock sound could not be played."
-        );
-    });
-}
-
-
-/* =========================
-   SUCCESSFUL UNLOCK
+   UNLOCK
 ========================= */
 
 function unlock() {
@@ -307,66 +253,40 @@ function unlock() {
     pinMessage.textContent =
         "you remembered... ♡";
 
-    keypad.classList.add(
-        "fade-away"
-    );
-
-    pinDisplay.classList.add(
-        "fade-away"
-    );
-
-    playUnlockSound();
-
+    keypad.style.opacity = "0";
+    pinDisplay.style.opacity = "0";
 
     setTimeout(() => {
 
-        lockButton.classList.add(
-            "unlocking"
-        );
+        lockButton.classList.add("unlocking");
 
     }, 200);
 
+    setTimeout(() => {
+
+        lockButton.classList.add("unlocked");
+
+    }, 1200);
 
     setTimeout(() => {
 
-        lockButton.classList.add(
-            "unlocked"
-        );
+        lockButton.classList.add("pop");
 
-    }, 1450);
-
+    }, 3000);
 
     setTimeout(() => {
 
-        lockButton.classList.add(
-            "pop-away"
-        );
+        document.getElementById("intro").style.opacity = "0";
 
-    }, 3600);
-
+    }, 3900);
 
     setTimeout(() => {
 
-        document
-            .getElementById("intro")
-            .classList.add("fade-out");
-
-    }, 4300);
-
-
-    setTimeout(() => {
-
-        document
-            .getElementById("intro")
-            .style.display = "none";
-
-        afterLock.classList.remove(
-            "hidden-section"
-        );
+        document.getElementById("intro").style.display = "none";
 
         afterLock.style.display = "flex";
 
-    }, 5400);
+    }, 4900);
 }
 
 
@@ -389,38 +309,17 @@ Because...`;
 
 
 /* =========================
-   CARD TYPEWRITER
+   TYPE BIRTHDAY MESSAGE
 ========================= */
-
-/*
-   The entire message is synchronized
-   to the actual duration of audio.mp3.
-
-   The message will NEVER finish before
-   the audio finishes.
-
-   Sentence and paragraph pauses are
-   naturally longer.
-*/
 
 function typeBirthdayMessage() {
 
     messageText.textContent = "";
 
-    messageCursor.classList.remove(
-        "hidden-cursor"
-    );
-
-    const audioDuration =
+    const duration =
         songAudio.duration;
 
-    if (!audioDuration ||
-        !isFinite(audioDuration)) {
-
-        /*
-           Fallback for browsers that have
-           not loaded the audio duration yet.
-        */
+    if (!duration || !isFinite(duration)) {
 
         songAudio.addEventListener(
             "loadedmetadata",
@@ -431,119 +330,59 @@ function typeBirthdayMessage() {
         return;
     }
 
+    let weight = 0;
 
-    /*
-       We calculate the total typing weight.
+    for (const char of birthdayMessage) {
 
-       Normal characters take a small amount
-       of time.
-
-       Spaces are slightly quicker.
-
-       Punctuation receives a small pause.
-
-       Paragraph breaks receive a larger pause.
-    */
-
-    let totalWeight = 0;
-
-    for (let i = 0; i < birthdayMessage.length; i++) {
-
-        const character =
-            birthdayMessage[i];
-
-        if (character === "\n") {
-
-            totalWeight += 28;
-
-        } else if (character === ".") {
-
-            totalWeight += 10;
-
-        } else if (character === ",") {
-
-            totalWeight += 5;
-
-        } else if (character === "♡") {
-
-            totalWeight += 7;
-
-        } else if (character === " ") {
-
-            totalWeight += 0.65;
-
+        if (char === "\n") {
+            weight += 25;
+        } else if (char === ".") {
+            weight += 9;
+        } else if (char === ",") {
+            weight += 4;
+        } else if (char === "♡") {
+            weight += 6;
+        } else if (char === " ") {
+            weight += 0.6;
         } else {
-
-            totalWeight += 1;
+            weight += 1;
         }
     }
-
-
-    /*
-       Leave a tiny amount of breathing room
-       at the end of the audio.
-
-       The final "because..." therefore
-       finishes just before the handoff.
-    */
 
     const targetTime =
         Math.max(
             1,
-            audioDuration - 0.35
+            duration - 0.4
         );
 
-
     let currentWeight = 0;
-    let characterIndex = 0;
-    let startTime = performance.now();
+    let index = 0;
+
+    const start =
+        performance.now();
 
 
     function typeCharacter() {
 
-        if (
-            characterIndex >=
-            birthdayMessage.length
-        ) {
+        if (index >= birthdayMessage.length) {
 
-            messageCursor.classList.add(
-                "hidden-cursor"
-            );
+            messageCursor.style.display =
+                "none";
 
             return;
         }
 
-
-        const character =
-            birthdayMessage[
-                characterIndex
-            ];
-
-
-        /*
-           Calculate how much of the total
-           weighted message we have completed.
-        */
+        const char =
+            birthdayMessage[index];
 
         const progress =
-            currentWeight /
-            totalWeight;
-
-
-        /*
-           Calculate where we should be
-           in the 48-second timeline.
-        */
+            currentWeight / weight;
 
         const targetElapsed =
-            progress *
-            targetTime;
-
+            progress * targetTime;
 
         const elapsed =
-            (performance.now() -
-                startTime) / 1000;
-
+            (performance.now() - start) / 1000;
 
         let delay =
             Math.max(
@@ -551,65 +390,34 @@ function typeBirthdayMessage() {
                 (targetElapsed - elapsed) * 1000
             );
 
+        if (char === ".")
+            delay += 170;
 
-        /*
-           Extra pauses make the writing feel
-           human instead of mechanical.
-        */
+        if (char === ",")
+            delay += 65;
 
-        if (character === ".") {
-            delay += 180;
-        }
-
-        if (character === ",") {
-            delay += 70;
-        }
-
-        if (character === "\n") {
-            delay += 420;
-        }
+        if (char === "\n")
+            delay += 380;
 
 
-        /*
-           Write the character.
-        */
-
-        messageText.textContent +=
-            character;
+        messageText.textContent += char;
 
 
-        /*
-           Increase weighted progress.
-        */
-
-        if (character === "\n") {
-
-            currentWeight += 28;
-
-        } else if (character === ".") {
-
-            currentWeight += 10;
-
-        } else if (character === ",") {
-
-            currentWeight += 5;
-
-        } else if (character === "♡") {
-
-            currentWeight += 7;
-
-        } else if (character === " ") {
-
-            currentWeight += 0.65;
-
-        } else {
-
+        if (char === "\n")
+            currentWeight += 25;
+        else if (char === ".")
+            currentWeight += 9;
+        else if (char === ",")
+            currentWeight += 4;
+        else if (char === "♡")
+            currentWeight += 6;
+        else if (char === " ")
+            currentWeight += 0.6;
+        else
             currentWeight += 1;
-        }
 
 
-        characterIndex++;
-
+        index++;
 
         setTimeout(
             typeCharacter,
@@ -617,13 +425,12 @@ function typeBirthdayMessage() {
         );
     }
 
-
     typeCharacter();
 }
 
 
 /* =========================
-   ENTER ROMANTIC CARD
+   ENTER CARD
 ========================= */
 
 enterButton.addEventListener(
@@ -634,34 +441,27 @@ enterButton.addEventListener(
 
         afterLock.style.display = "none";
 
-        romanticCard.classList.remove(
-            "hidden-section"
-        );
-
         romanticCard.style.display = "flex";
 
-
         /*
-           Start loading the guitar video
-           immediately so it is ready by
-           the time the audio finishes.
+           Load the video early.
         */
 
         guitarVideo.load();
 
 
         /*
-           Start the 48-second audio.
+           Start song.
         */
 
         songAudio.currentTime = 0;
 
-        const audioPromise =
+        const playPromise =
             songAudio.play();
 
-        if (audioPromise !== undefined) {
+        if (playPromise) {
 
-            audioPromise.catch(() => {
+            playPromise.catch(() => {
 
                 console.log(
                     "Audio playback was blocked."
@@ -672,84 +472,44 @@ enterButton.addEventListener(
 
 
         /*
-           Begin the typewriter once the
-           browser knows the audio duration.
+           Start typewriter.
         */
 
-        if (
-            songAudio.readyState >= 1
-        ) {
-
-            typeBirthdayMessage();
-
-        } else {
-
-            songAudio.addEventListener(
-                "loadedmetadata",
-                typeBirthdayMessage,
-                { once: true }
-            );
-        }
+        typeBirthdayMessage();
     }
 );
 
 
 /* =========================
-   AUDIO → GUITAR HANDOFF
+   SONG → GUITAR
 ========================= */
 
 songAudio.addEventListener(
     "ended",
     () => {
 
-        /*
-           Remove the romantic card.
-        */
+        romanticCard.style.display = "none";
 
-        romanticCard.style.display =
-            "none";
-
+        guitarScene.style.display = "flex";
 
         /*
-           Show the guitar scene.
-        */
-
-        guitarScene.classList.remove(
-            "hidden-section"
-        );
-
-        guitarScene.style.display =
-            "flex";
-
-
-        /*
-           ALWAYS begin the video from
-           its very first frame.
-
-           No seeking.
+           Start EXACTLY from the
+           beginning of guitar.mp4.
         */
 
         guitarVideo.currentTime = 0;
 
-
-        const videoPromise =
+        const playPromise =
             guitarVideo.play();
 
-        if (
-            videoPromise !== undefined
-        ) {
+        if (playPromise) {
 
-            videoPromise.catch(() => {
-
-                /*
-                   This normally shouldn't happen
-                   because the user initiated the
-                   sequence by clicking enter.
-                */
+            playPromise.catch(() => {
 
                 console.log(
                     "Video playback was blocked."
                 );
+
             });
         }
     }
@@ -757,20 +517,20 @@ songAudio.addEventListener(
 
 
 /* =========================
-   VIDEO FINISH
+   GUITAR FINISHED
 ========================= */
 
 guitarVideo.addEventListener(
     "ended",
     () => {
 
+        console.log(
+            "Guitar video finished."
+        );
+
         /*
-           The video currently simply ends
-           naturally.
-
-           We can build the birthday finale
-           after this in the next stage.
+           Birthday finale goes here.
         */
-
     }
 );
+```
