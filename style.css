@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&family=Parisienne&display=swap');
 
 * {
     box-sizing: border-box;
@@ -18,6 +18,10 @@ body {
     overflow-x: hidden;
 }
 
+/* =========================
+   GENERAL SCREEN
+========================= */
+
 .screen {
     width: 100%;
     min-height: 100vh;
@@ -36,6 +40,14 @@ body {
         ),
         #080508;
 }
+
+.hidden {
+    display: none;
+}
+
+/* =========================
+   INTRO
+========================= */
 
 .intro-content {
     width: 100%;
@@ -69,8 +81,6 @@ body {
     transition: opacity 0.5s ease;
 }
 
-/* TYPEWRITER CURSOR */
-
 .typewriter-cursor {
     display: inline-block;
 
@@ -91,8 +101,7 @@ body {
 .typewriter-cursor.cursor-fade {
     opacity: 0;
 
-    transition:
-        opacity 0.35s ease;
+    transition: opacity 0.35s ease;
 }
 
 @keyframes cursorBlink {
@@ -108,6 +117,10 @@ body {
     }
 }
 
+/* =========================
+   LOCK AREA
+========================= */
+
 .lock-area {
     margin-top: 30px;
 
@@ -122,10 +135,6 @@ body {
 
     animation:
         appear 1.5s ease forwards;
-}
-
-.hidden {
-    display: none;
 }
 
 .lock-message {
@@ -179,8 +188,6 @@ body {
 
         opacity 0.8s ease;
 }
-
-/* CLEAN TRANSPARENT SHACKLE */
 
 .lock-shackle {
     position: absolute;
@@ -298,24 +305,6 @@ body {
         rgba(60, 0, 30, 0.8);
 }
 
-.lock-keyhole span {
-    position: absolute;
-
-    left: 50%;
-    top: 9px;
-
-    transform:
-        translateX(-50%);
-
-    width: 7px;
-    height: 14px;
-
-    background: #4b1230;
-
-    border-radius:
-        0 0 5px 5px;
-}
-
 /* =========================
    PIN DISPLAY
 ========================= */
@@ -334,7 +323,6 @@ body {
 
     transition:
         opacity 0.7s ease,
-
         transform 0.7s ease;
 }
 
@@ -358,13 +346,6 @@ body {
     border-bottom:
         1px solid
         rgba(255, 125, 185, 0.35);
-
-    transition:
-        color 0.25s ease,
-
-        border-color 0.25s ease,
-
-        transform 0.25s ease;
 }
 
 .pin-display span.filled {
@@ -399,7 +380,6 @@ body {
 
     transition:
         opacity 0.7s ease,
-
         transform 0.7s ease;
 }
 
@@ -428,9 +408,7 @@ body {
 
     transition:
         transform 0.18s ease,
-
         background 0.18s ease,
-
         box-shadow 0.18s ease;
 }
 
@@ -509,11 +487,7 @@ body {
         lockShake 0.55s ease;
 }
 
-.keypad.wrong {
-    animation:
-        keypadShake 0.55s ease;
-}
-
+.keypad.wrong,
 .pin-display.wrong {
     animation:
         keypadShake 0.55s ease;
@@ -521,63 +495,27 @@ body {
 
 @keyframes lockShake {
 
-    0% {
-        transform: translateX(0);
-    }
-
-    20% {
-        transform: translateX(-9px);
-    }
-
-    40% {
-        transform: translateX(9px);
-    }
-
-    60% {
-        transform: translateX(-7px);
-    }
-
-    80% {
-        transform: translateX(7px);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-9px); }
+    40% { transform: translateX(9px); }
+    60% { transform: translateX(-7px); }
+    80% { transform: translateX(7px); }
+    100% { transform: translateX(0); }
 }
 
 @keyframes keypadShake {
 
-    0% {
-        transform: translateX(0);
-    }
-
-    20% {
-        transform: translateX(-5px);
-    }
-
-    40% {
-        transform: translateX(5px);
-    }
-
-    60% {
-        transform: translateX(-4px);
-    }
-
-    80% {
-        transform: translateX(4px);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+    100% { transform: translateX(0); }
 }
 
 /* =========================
-   SMOOTH UNLOCK
+   UNLOCK
 ========================= */
-
-/* SHACKLE RELEASES FIRST */
 
 .lock-button.unlocking .lock-shackle {
     transform:
@@ -592,8 +530,6 @@ body {
         0 0 35px
         rgba(255, 75, 165, 0.35);
 }
-
-/* LOCK THEN GROWS SMOOTHLY */
 
 .lock-button.unlocked {
     filter:
@@ -625,81 +561,32 @@ body {
         transform:
             scale(1)
             translateY(0);
-
-        filter:
-            drop-shadow(
-                0 0 10px
-                rgba(255, 80, 170, 0.25)
-            );
     }
 
     25% {
         transform:
             scale(1.12)
             translateY(-5px);
-
-        filter:
-            drop-shadow(
-                0 0 15px
-                rgba(255, 90, 175, 0.45)
-            );
     }
 
     50% {
         transform:
             scale(1.35)
             translateY(-14px);
-
-        filter:
-            drop-shadow(
-                0 0 25px
-                rgba(255, 100, 180, 0.7)
-            )
-
-            drop-shadow(
-                0 0 50px
-                rgba(255, 60, 160, 0.3)
-            );
     }
 
     75% {
         transform:
             scale(1.55)
             translateY(-23px);
-
-        filter:
-            drop-shadow(
-                0 0 32px
-                rgba(255, 100, 180, 0.85)
-            )
-
-            drop-shadow(
-                0 0 65px
-                rgba(255, 60, 160, 0.4)
-            );
     }
 
     100% {
         transform:
             scale(1.65)
             translateY(-25px);
-
-        filter:
-            drop-shadow(
-                0 0 20px
-                rgba(255, 90, 175, 0.8)
-            )
-
-            drop-shadow(
-                0 0 55px
-                rgba(255, 60, 160, 0.35)
-            );
     }
 }
-
-/* =========================
-   LOCK POP AWAY
-========================= */
 
 .lock-button.pop-away {
     animation:
@@ -722,50 +609,18 @@ body {
             translateY(-25px);
 
         opacity: 1;
-
-        filter:
-            drop-shadow(
-                0 0 25px
-                rgba(255, 100, 180, 0.9)
-            )
-
-            drop-shadow(
-                0 0 55px
-                rgba(255, 60, 160, 0.4)
-            );
     }
 
     25% {
         transform:
             scale(1.75)
             translateY(-32px);
-
-        opacity: 1;
-
-        filter:
-            drop-shadow(
-                0 0 35px
-                rgba(255, 110, 190, 0.95)
-            );
     }
 
     45% {
         transform:
             scale(1.82)
             translateY(-42px);
-
-        opacity: 1;
-
-        filter:
-            drop-shadow(
-                0 0 45px
-                rgba(255, 120, 195, 1)
-            )
-
-            drop-shadow(
-                0 0 80px
-                rgba(255, 60, 160, 0.55)
-            );
     }
 
     65% {
@@ -782,18 +637,8 @@ body {
             translateY(-150px);
 
         opacity: 0;
-
-        filter:
-            drop-shadow(
-                0 0 0
-                transparent
-            );
     }
 }
-
-/* =========================
-   FADE KEYPAD
-========================= */
 
 .keypad.fade-away,
 .pin-display.fade-away {
@@ -804,10 +649,6 @@ body {
 
     pointer-events: none;
 }
-
-/* =========================
-   FADE TO NEXT SCENE
-========================= */
 
 .fade-out {
     animation:
@@ -829,15 +670,22 @@ body {
 }
 
 /* =========================
-   NEXT SECTION
+   AFTER LOCK
 ========================= */
 
 .hidden-section {
     display: none;
 }
 
-.after-lock-content,
-.birthday-content {
+.after-lock-content {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
     text-align: center;
 
     padding: 30px;
@@ -857,6 +705,8 @@ body {
     font-size: 1.3rem;
 
     color: #dca8c2;
+
+    margin: 0;
 }
 
 .begin-text {
@@ -867,22 +717,426 @@ body {
     font-size: 2.2rem;
 
     color: #f8ddea;
+
+    margin: 8px 0 0;
 }
 
-.little-heart {
-    margin-top: 30px;
+.first-text {
+    font-family:
+        'Cormorant Garamond',
+        serif;
 
-    font-size: 2rem;
+    font-size: 1.4rem;
 
-    color: #ff75b5;
+    color: #dca8c2;
+
+    margin-top: 40px;
+
+    opacity: 0;
+
+    animation:
+        delayedAppear
+        1.5s
+        ease
+        1.8s
+        forwards;
+}
+
+.enter-button {
+    margin-top: 18px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #ff9bc6;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 1.5rem;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    animation:
+        delayedAppear
+        1.5s
+        ease
+        3.2s
+        forwards;
+
+    transition:
+        transform 0.3s ease,
+        text-shadow 0.3s ease;
+}
+
+.enter-button:hover {
+    transform: scale(1.08);
 
     text-shadow:
-        0 0 20px
-        rgba(255, 75, 165, 0.7);
+        0 0 18px
+        rgba(255, 110, 180, 0.7);
 }
 
 /* =========================
-   GENERAL APPEAR
+   ROMANTIC CARD
+========================= */
+
+.romantic-card {
+    position: relative;
+
+    width: 100%;
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(255, 235, 241, 0.98) 0%,
+            rgba(249, 220, 228, 0.98) 55%,
+            rgba(232, 181, 198, 0.98) 100%
+        );
+}
+
+.romantic-card::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0.28;
+
+    background-image:
+        radial-gradient(
+            rgba(120, 65, 80, 0.15) 0.7px,
+            transparent 0.7px
+        );
+
+    background-size: 5px 5px;
+
+    pointer-events: none;
+}
+
+.card-glow {
+    position: absolute;
+
+    width: 80vw;
+    height: 80vw;
+
+    max-width: 900px;
+    max-height: 900px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.7),
+            transparent 65%
+        );
+
+    pointer-events: none;
+}
+
+.paper-card {
+    position: relative;
+
+    width: min(88vw, 760px);
+    min-height: min(78vh, 720px);
+
+    padding:
+        clamp(55px, 8vw, 90px)
+        clamp(35px, 8vw, 90px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 252, 247, 0.98),
+            rgba(255, 245, 246, 0.97)
+        );
+
+    box-shadow:
+        0 25px 70px
+        rgba(105, 35, 60, 0.22),
+
+        0 5px 20px
+        rgba(120, 50, 75, 0.12);
+
+    border-radius: 4px;
+
+    animation:
+        cardOpen
+        1.8s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        )
+        forwards;
+}
+
+.paper-card::before,
+.paper-card::after {
+    content: "";
+
+    position: absolute;
+
+    pointer-events: none;
+}
+
+.paper-card::before {
+    inset: 14px;
+
+    border:
+        1px solid
+        rgba(190, 93, 125, 0.22);
+}
+
+.paper-card::after {
+    inset: 25px;
+
+    border:
+        1px solid
+        rgba(190, 93, 125, 0.10);
+}
+
+.paper-frame {
+    position: absolute;
+
+    inset: 38px;
+
+    border:
+        1px solid
+        rgba(190, 93, 125, 0.10);
+
+    pointer-events: none;
+}
+
+.card-content {
+    position: relative;
+
+    z-index: 3;
+
+    width: 100%;
+
+    text-align: center;
+}
+
+.message-text {
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size:
+        clamp(1.2rem, 2.2vw, 1.65rem);
+
+    line-height: 1.75;
+
+    font-weight: 400;
+
+    letter-spacing: 0.015em;
+
+    color: #6f4053;
+
+    white-space: pre-wrap;
+}
+
+.message-cursor {
+    display: inline-block;
+
+    margin-left: 3px;
+
+    color: #bd587d;
+
+    font-family:
+        'Montserrat',
+        sans-serif;
+
+    font-size: 0.9em;
+
+    animation:
+        cursorBlink
+        0.75s
+        ease-in-out
+        infinite;
+}
+
+.message-cursor.hidden-cursor {
+    opacity: 0;
+
+    transition:
+        opacity 0.4s ease;
+}
+
+.card-decoration {
+    position: absolute;
+
+    z-index: 5;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    color: #c86a8d;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 1.8rem;
+
+    opacity: 0.65;
+}
+
+.top-decoration {
+    top: 24px;
+}
+
+.bottom-decoration {
+    bottom: 20px;
+
+    transform:
+        translateX(-50%)
+        rotate(180deg);
+}
+
+/* =========================
+   FLOATING DETAILS
+========================= */
+
+.floating-petal {
+    position: absolute;
+
+    z-index: 2;
+
+    color:
+        rgba(194, 84, 122, 0.3);
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 2rem;
+
+    animation:
+        floatPetal
+        6s
+        ease-in-out
+        infinite;
+}
+
+.petal-one {
+    top: 12%;
+    left: 9%;
+}
+
+.petal-two {
+    top: 24%;
+    right: 8%;
+
+    animation-delay: 1.5s;
+}
+
+.petal-three {
+    bottom: 16%;
+    left: 11%;
+
+    animation-delay: 3s;
+}
+
+.petal-four {
+    bottom: 23%;
+    right: 12%;
+
+    animation-delay: 4s;
+}
+
+@keyframes floatPetal {
+
+    0%,
+    100% {
+        transform:
+            translateY(0)
+            rotate(0deg);
+    }
+
+    50% {
+        transform:
+            translateY(-15px)
+            rotate(8deg);
+    }
+}
+
+@keyframes cardOpen {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.94)
+            translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+/* =========================
+   GUITAR VIDEO
+========================= */
+
+.guitar-scene {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: #080508;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 100;
+}
+
+.guitar-scene video {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+
+    background: #080508;
+}
+
+/* =========================
+   ANIMATIONS
 ========================= */
 
 @keyframes appear {
@@ -899,5 +1153,60 @@ body {
 
         transform:
             translateY(0);
+    }
+}
+
+@keyframes delayedAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .paper-card {
+        width: 92vw;
+
+        min-height: 78vh;
+
+        padding:
+            55px 28px;
+    }
+
+    .paper-card::before {
+        inset: 10px;
+    }
+
+    .paper-card::after {
+        inset: 19px;
+    }
+
+    .paper-frame {
+        inset: 29px;
+    }
+
+    .message-text {
+        font-size: 1.2rem;
+
+        line-height: 1.7;
+    }
+
+    .floating-petal {
+        font-size: 1.5rem;
     }
 }
