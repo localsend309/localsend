@@ -1,945 +1,771 @@
-```css
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+  box-sizing: border-box;
+  }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+width: 100%;
+height: 100%;
+margin: 0;
+padding: 0;
 }
 
 body {
-    font-family: Georgia, "Times New Roman", serif;
+overflow: hidden;
+font-family: Georgia, "Times New Roman", serif;
+background: #080507;
+color: #f7e9ed;
 }
 
-
-/* ==============================
-   INTRO
-============================== */
+/* =========================
+INTRO
+========================= */
 
 #intro {
-    position: fixed;
-    inset: 0;
+position: fixed;
+inset: 0;
+display: flex;
+align-items: center;
+justify-content: center;
 
-    width: 100%;
-    height: 100%;
+```
+background:
+    radial-gradient(circle at center, #211017 0%, #0f080b 45%, #050304 100%);
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+z-index: 10;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #251a1f 0%,
-            #130e11 50%,
-            #080708 100%
-        );
+transition:
+    opacity 1.2s ease,
+    visibility 1.2s ease;
+```
 
-    color: #f6e8ed;
+}
 
-    opacity: 1;
-
-    transition: opacity 1s ease;
+#intro.hidden {
+opacity: 0;
+visibility: hidden;
+pointer-events: none;
 }
 
 .intro-content {
-    position: relative;
+width: 100%;
+height: 100%;
 
-    width: 100%;
-    height: 100%;
+```
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
 
-    display: flex;
-    flex-direction: column;
+text-align: center;
 
-    align-items: center;
-    justify-content: center;
+padding: 25px;
+```
 
-    text-align: center;
-
-    padding: 25px;
 }
-
-
-/* The intro text stays in the visual center */
 
 #introText {
-    width: 90%;
-    max-width: 900px;
+width: 100%;
+max-width: 900px;
+min-height: 45px;
 
-    min-height: 50px;
+```
+display: block;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+text-align: center;
 
-    text-align: center;
+font-size: clamp(24px, 4vw, 38px);
+line-height: 1.4;
 
-    font-size: clamp(24px, 4vw, 38px);
+margin: 0 auto;
 
-    line-height: 1.4;
+color: #f8e8ec;
 
-    margin: 0 auto;
+transition: opacity 0.4s ease;
+```
 
-    transition: opacity 0.4s ease;
 }
-
-#introText span {
-    text-align: center;
-}
-
-.cursor {
-    display: inline-block;
-
-    margin-left: 4px;
-
-    animation: blink 0.8s infinite;
-}
-
-@keyframes blink {
-    0%,
-    45% {
-        opacity: 1;
-    }
-
-    46%,
-    100% {
-        opacity: 0;
-    }
-}
-
-
-/* ==============================
-   LOCK AREA
-============================== */
 
 #lockArea {
-    width: 100%;
+width: 100%;
 
-    display: flex;
-    flex-direction: column;
+```
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
 
-    align-items: center;
-    justify-content: center;
+margin-top: 35px;
 
-    margin-top: 35px;
+opacity: 0;
+pointer-events: none;
 
-    opacity: 0;
+transition: opacity 0.9s ease;
+```
 
-    pointer-events: none;
-
-    transition: opacity 0.9s ease;
 }
 
 #lockArea.visible {
-    opacity: 1;
-    pointer-events: auto;
+opacity: 1;
+pointer-events: auto;
 }
 
 .lock-message {
-    margin-bottom: 22px;
+margin: 0 0 22px;
 
-    color: #b9a7ae;
+```
+color: #d8b8c2;
 
-    font-family: Arial, sans-serif;
+font-size: 16px;
+letter-spacing: 0.5px;
+```
 
-    font-size: 11px;
-
-    letter-spacing: 0.08em;
-
-    text-align: center;
 }
 
-
-/* ==============================
-   LOCK
-============================== */
+/* LOCK */
 
 .lock {
-    position: relative;
+position: relative;
 
-    width: 82px;
-    height: 98px;
+```
+width: 95px;
+height: 110px;
 
-    flex-shrink: 0;
+cursor: pointer;
 
-    transform-origin: center;
+transition:
+    transform 0.7s ease,
+    filter 0.7s ease,
+    opacity 0.7s ease;
+```
 
-    transition:
-        transform 0.7s ease,
-        opacity 0.5s ease;
 }
 
 .shackle {
-    position: absolute;
+position: absolute;
 
-    top: 0;
-    left: 18px;
+```
+width: 58px;
+height: 65px;
 
-    width: 46px;
-    height: 48px;
+left: 50%;
+top: 0;
 
-    border: 6px solid #d3aab7;
+transform: translateX(-50%);
 
-    border-bottom: 0;
+border: 8px solid #d8a8b8;
+border-bottom: none;
 
-    border-radius: 28px 28px 0 0;
+border-radius: 32px 32px 0 0;
 
-    transition:
-        transform 1s ease;
+transition:
+    transform 0.6s ease,
+    border-color 0.5s ease;
+```
+
 }
 
 .lock-body {
-    position: absolute;
+position: absolute;
 
-    left: 3px;
-    bottom: 0;
+```
+width: 95px;
+height: 72px;
 
-    width: 76px;
-    height: 61px;
+left: 0;
+bottom: 0;
 
-    border-radius: 10px;
+border-radius: 12px;
 
-    background:
-        linear-gradient(
-            145deg,
-            #d9afbb,
-            #a77887
-        );
+background:
+    linear-gradient(
+        145deg,
+        #f0c6d2,
+        #b8758d
+    );
 
-    box-shadow:
-        0 12px 30px rgba(
-            0,
-            0,
-            0,
-            0.4
-        );
+box-shadow:
+    0 0 25px rgba(231, 153, 177, 0.25),
+    inset 0 2px 5px rgba(255,255,255,0.35);
+
+transition:
+    transform 0.7s ease,
+    box-shadow 0.7s ease;
+```
+
 }
 
 .keyhole {
-    position: absolute;
+position: absolute;
 
-    top: 16px;
-    left: 50%;
+```
+width: 12px;
+height: 18px;
 
-    width: 9px;
-    height: 17px;
+left: 50%;
+top: 20px;
 
-    transform: translateX(-50%);
+transform: translateX(-50%);
 
-    border-radius: 5px;
+border-radius: 8px;
 
-    background: #4b353d;
+background: #5a2637;
+```
+
 }
 
 .keyhole::after {
-    content: "";
+content: "";
 
-    position: absolute;
+```
+position: absolute;
 
-    top: 8px;
-    left: 50%;
+width: 22px;
+height: 22px;
 
-    width: 16px;
-    height: 16px;
+left: 50%;
+top: 8px;
 
-    transform: translateX(-50%);
+transform: translateX(-50%);
 
-    border-radius: 50%;
+border-radius: 50%;
 
-    background: #4b353d;
+background: #5a2637;
+```
+
 }
 
 .lock-heart {
-    position: absolute;
+position: absolute;
 
-    bottom: 5px;
-    left: 50%;
+```
+left: 50%;
+bottom: 8px;
 
-    transform: translateX(-50%);
+transform: translateX(-50%);
 
-    color: white;
+color: #fff4f7;
 
-    font-size: 12px;
+font-size: 15px;
+```
+
 }
 
-
-/* Wrong PIN */
-
-.lock.wrong {
-    animation: shake 0.4s ease;
-}
-
-#keypad.wrong {
-    animation: shake 0.4s ease;
-}
-
-#pinDisplay.wrong {
-    animation: shake 0.4s ease;
-}
-
-@keyframes shake {
-    0%,
-    100% {
-        transform: translateX(0);
-    }
-
-    25% {
-        transform: translateX(-6px);
-    }
-
-    75% {
-        transform: translateX(6px);
-    }
-}
-
-
-/* Unlock animation */
-
-.lock.unlocking {
-    transform: scale(1.18);
-}
-
-.lock.unlocked .shackle {
-    transform:
-        translateY(-20px)
-        rotate(-18deg);
-}
-
-.lock.pop {
-    animation: pop 1.1s ease forwards;
-}
-
-@keyframes pop {
-    0% {
-        opacity: 1;
-
-        transform:
-            scale(1.2);
-    }
-
-    35% {
-        transform:
-            scale(1.5);
-    }
-
-    100% {
-        opacity: 0;
-
-        transform:
-            scale(2.2)
-            translateY(-20px);
-
-        filter: blur(7px);
-    }
-}
-
-
-/* ==============================
-   PIN DISPLAY
-============================== */
+/* PIN */
 
 #pinDisplay {
-    display: flex;
+display: flex;
+gap: 9px;
 
-    align-items: center;
-    justify-content: center;
+```
+margin-top: 25px;
+```
 
-    gap: 10px;
-
-    margin-top: 23px;
-
-    transition: opacity 0.5s ease;
 }
 
 #pinDisplay span {
-    width: 9px;
-    height: 9px;
+width: 12px;
+height: 12px;
 
-    border: 1px solid #ad8b97;
+```
+border-radius: 50%;
 
-    border-radius: 50%;
+border: 1px solid #c78da0;
 
-    transition:
-        background 0.2s ease,
-        box-shadow 0.2s ease;
+background: transparent;
+
+transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+```
+
 }
 
 #pinDisplay span.filled {
-    background: #e3bbc7;
+background: #e6aabd;
+transform: scale(1.15);
 
-    box-shadow:
-        0 0 9px rgba(
-            227,
-            187,
-            199,
-            0.45
-        );
+```
+box-shadow: 0 0 8px rgba(230,170,189,0.6);
+```
+
 }
 
-
-/* ==============================
-   KEYPAD
-============================== */
+/* KEYPAD */
 
 #keypad {
-    display: grid;
+width: min(270px, 90vw);
 
-    grid-template-columns:
-        repeat(3, 56px);
+```
+display: grid;
+grid-template-columns: repeat(3, 1fr);
 
-    gap: 8px;
+gap: 10px;
 
-    margin-top: 19px;
+margin-top: 20px;
+```
 
-    transition:
-        opacity 0.5s ease;
 }
 
 #keypad button {
-    width: 56px;
-    height: 46px;
+height: 52px;
 
-    border:
-        1px solid rgba(
-            220,
-            190,
-            201,
-            0.25
-        );
+```
+border: 1px solid rgba(220, 166, 183, 0.35);
 
-    border-radius: 9px;
+border-radius: 12px;
 
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.025
-        );
+background: rgba(255, 220, 230, 0.06);
 
-    color: #eadde1;
+color: #f5dce3;
 
-    font-family: Arial, sans-serif;
+font-size: 20px;
 
-    font-size: 15px;
+cursor: pointer;
 
-    cursor: pointer;
+transition:
+    background 0.2s ease,
+    transform 0.15s ease;
+```
 
-    transition:
-        transform 0.15s ease,
-        background 0.2s ease;
 }
 
 #keypad button:hover {
-    background:
-        rgba(
-            220,
-            180,
-            195,
-            0.1
-        );
+background: rgba(255, 220, 230, 0.13);
 }
 
 #keypad button:active {
-    transform: scale(0.94);
+transform: scale(0.94);
 }
 
 #keypad .empty {
-    visibility: hidden;
+visibility: hidden;
 }
 
-
-/* ==============================
-   HINT
-============================== */
-
 .hint {
-    margin-top: 20px;
+margin: 18px 0 0;
 
-    color: #756970;
+```
+color: #8e6572;
 
-    font-family: Arial, sans-serif;
+font-size: 13px;
+```
 
-    font-size: 9px;
-
-    letter-spacing: 0.07em;
-
-    text-align: center;
 }
 
 .hint span {
-    color: #a98995;
+color: #b98898;
 }
 
 #pinMessage {
-    min-height: 18px;
+min-height: 20px;
 
-    margin-top: 7px;
+```
+margin-top: 10px;
 
-    color: #d7b0bc;
+color: #d58ba0;
 
-    font-size: 14px;
+font-size: 13px;
+```
 
-    font-style: italic;
-
-    text-align: center;
 }
 
+/* WRONG PIN */
 
-/* ==============================
-   AFTER UNLOCK
-============================== */
+#lockArea.shake {
+animation: shake 0.45s ease;
+}
+
+@keyframes shake {
+0%, 100% {
+transform: translateX(0);
+}
+
+```
+20% {
+    transform: translateX(-8px);
+}
+
+40% {
+    transform: translateX(8px);
+}
+
+60% {
+    transform: translateX(-6px);
+}
+
+80% {
+    transform: translateX(6px);
+}
+```
+
+}
+
+/* UNLOCK */
+
+.lock.unlocked {
+transform: scale(1.35);
+
+```
+filter:
+    drop-shadow(0 0 25px rgba(255,190,210,0.7));
+
+opacity: 0;
+```
+
+}
+
+.lock.unlocked .shackle {
+transform:
+translateX(-50%)
+translateY(-15px)
+rotate(-18deg);
+}
+
+.lock.unlocked .lock-body {
+box-shadow:
+0 0 55px rgba(255,170,200,0.8),
+inset 0 2px 8px rgba(255,255,255,0.45);
+}
+
+/* =========================
+AFTER LOCK
+========================= */
 
 #afterLock {
-    position: fixed;
-    inset: 0;
+position: fixed;
+inset: 0;
 
-    width: 100%;
-    height: 100%;
+```
+display: flex;
+align-items: center;
+justify-content: center;
 
-    display: none;
+background:
+    radial-gradient(circle at center, #2a151e, #0b0608 75%);
 
-    align-items: center;
-    justify-content: center;
+opacity: 0;
+visibility: hidden;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #251a1f,
-            #080708
-        );
+transition:
+    opacity 1s ease,
+    visibility 1s ease;
 
-    color: #f5e8ec;
+z-index: 8;
+```
 
-    text-align: center;
+}
+
+#afterLock.visible {
+opacity: 1;
+visibility: visible;
 }
 
 .after-content {
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
+text-align: center;
 }
 
 .small-text {
-    color: #a28e95;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 10px;
-
-    letter-spacing: 0.12em;
+color: #9e7280;
+font-size: 15px;
+margin-bottom: 12px;
 }
 
 .after-content h1 {
-    margin-top: 18px;
+margin: 0;
 
-    font-size:
-        clamp(
-            32px,
-            6vw,
-            55px
-        );
+```
+color: #f5dfe5;
 
-    font-weight: 400;
+font-size: clamp(32px, 6vw, 55px);
+
+font-weight: normal;
+```
+
 }
 
 .first-text {
-    margin-top: 28px;
+margin-top: 20px;
 
-    color: #b9a5ac;
+```
+color: #c59aa7;
+```
 
-    font-size: 23px;
-
-    font-style: italic;
 }
 
 #enterButton {
-    margin-top: 30px;
+margin-top: 15px;
 
-    padding: 12px 24px;
+```
+padding: 12px 28px;
 
-    border:
-        1px solid rgba(
-            227,
-            191,
-            203,
-            0.4
-        );
+border: 1px solid rgba(235,180,197,0.4);
 
-    border-radius: 30px;
+border-radius: 30px;
 
-    background: transparent;
+background: rgba(255,220,230,0.07);
 
-    color: #ead8de;
+color: #f2dbe2;
 
-    font-family: Arial, sans-serif;
+font-family: inherit;
+font-size: 16px;
 
-    font-size: 11px;
+cursor: pointer;
 
-    cursor: pointer;
+transition:
+    background 0.3s ease,
+    transform 0.2s ease;
+```
 
-    transition:
-        background 0.2s ease,
-        transform 0.2s ease;
 }
 
 #enterButton:hover {
-    background:
-        rgba(
-            255,
-            255,
-            255,
-            0.06
-        );
+background: rgba(255,220,230,0.14);
 }
 
 #enterButton:active {
-    transform: scale(0.96);
+transform: scale(0.95);
 }
 
-
-/* ==============================
-   ROMANTIC CARD
-============================== */
+/* =========================
+ROMANTIC CARD
+========================= */
 
 #romanticCard {
-    position: fixed;
-    inset: 0;
+position: fixed;
+inset: 0;
 
-    width: 100%;
-    height: 100%;
+```
+display: flex;
+align-items: center;
+justify-content: center;
 
-    display: none;
+background:
+    radial-gradient(
+        circle at center,
+        #fff6f5 0%,
+        #f8dfe3 55%,
+        #e9bfc8 100%
+    );
 
-    align-items: center;
-    justify-content: center;
+opacity: 0;
+visibility: hidden;
 
-    overflow: hidden;
+transition:
+    opacity 1.2s ease,
+    visibility 1.2s ease;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #fffaf6,
-            #f8e8e7 60%,
-            #efd6d8
-        );
+z-index: 6;
+
+overflow: hidden;
+```
+
+}
+
+#romanticCard.visible {
+opacity: 1;
+visibility: visible;
 }
 
 .card {
-    position: relative;
+position: relative;
 
-    width: min(88vw, 760px);
-    height: min(82vh, 680px);
+```
+width: min(850px, 88vw);
+min-height: min(620px, 78vh);
 
-    display: flex;
+padding: 65px 60px;
 
-    align-items: center;
-    justify-content: center;
+background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,0.95),
+        rgba(255,245,246,0.96)
+    );
 
-    padding: 65px;
+border-radius: 8px;
 
-    background: #fffaf5;
+box-shadow:
+    0 25px 80px rgba(98, 46, 60, 0.25);
 
-    border:
-        1px solid rgba(
-            177,
-            119,
-            133,
-            0.25
-        );
+display: flex;
+flex-direction: column;
 
-    box-shadow:
-        0 25px 70px rgba(
-            100,
-            60,
-            70,
-            0.18
-        );
+justify-content: space-between;
 
-    animation:
-        cardOpen 1.2s ease forwards;
-}
+overflow: hidden;
+```
 
-@keyframes cardOpen {
-    from {
-        opacity: 0;
-
-        transform:
-            scale(0.93)
-            translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            scale(1)
-            translateY(0);
-    }
 }
 
 .card-border {
-    position: absolute;
+position: absolute;
+inset: 18px;
 
-    inset: 17px;
+```
+border: 1px solid rgba(188, 106, 128, 0.35);
 
-    border:
-        1px solid rgba(
-            177,
-            119,
-            133,
-            0.24
-        );
-}
+pointer-events: none;
+```
 
-.card-border::after {
-    content: "";
-
-    position: absolute;
-
-    inset: 8px;
-
-    border:
-        1px solid rgba(
-            177,
-            119,
-            133,
-            0.11
-        );
 }
 
 .card-top,
 .card-bottom {
-    position: absolute;
+text-align: center;
 
-    left: 50%;
+```
+color: #c77b91;
 
-    transform: translateX(-50%);
+font-size: 25px;
+```
 
-    color: #bd8997;
-
-    font-size: 27px;
-}
-
-.card-top {
-    top: 25px;
-}
-
-.card-bottom {
-    bottom: 25px;
 }
 
 .message-area {
-    width: 100%;
-    max-width: 610px;
+position: relative;
 
-    text-align: center;
+```
+z-index: 2;
 
-    color: #50363f;
+max-width: 700px;
 
-    font-size:
-        clamp(
-            18px,
-            2.2vw,
-            25px
-        );
+margin: auto;
 
-    line-height: 1.6;
+color: #693d4b;
 
-    white-space: pre-wrap;
+font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+font-size: clamp(17px, 2vw, 21px);
+
+line-height: 1.8;
+
+white-space: pre-wrap;
+
+text-align: left;
+```
+
 }
 
 #messageCursor {
-    color: #b57b8a;
+opacity: 1;
 
-    animation: blink 0.8s infinite;
+```
+animation: blink 0.8s infinite;
+```
+
 }
 
-
-/* ==============================
-   FLOATING HEARTS
-============================== */
+@keyframes blink {
+50% {
+opacity: 0;
+}
+}
 
 .heart {
-    position: absolute;
+position: absolute;
 
-    color:
-        rgba(
-            170,
-            100,
-            120,
-            0.35
-        );
+```
+color: rgba(181, 92, 117, 0.28);
 
-    font-size: 22px;
+font-size: 35px;
 
-    animation:
-        float 7s ease-in-out infinite;
+animation: floatHeart 5s ease-in-out infinite;
+```
+
 }
 
 .heart1 {
-    top: 14%;
-    left: 10%;
+top: 10%;
+left: 8%;
 }
 
 .heart2 {
-    top: 22%;
-    right: 10%;
+top: 20%;
+right: 10%;
 
-    animation-delay: 2s;
+```
+animation-delay: 1s;
+```
+
 }
 
 .heart3 {
-    bottom: 15%;
-    left: 9%;
+bottom: 15%;
+left: 12%;
 
-    animation-delay: 3s;
+```
+animation-delay: 2s;
+```
+
 }
 
 .heart4 {
-    bottom: 20%;
-    right: 11%;
+bottom: 12%;
+right: 8%;
 
-    animation-delay: 4s;
+```
+animation-delay: 3s;
+```
+
 }
 
-@keyframes float {
-    0%,
-    100% {
-        transform: translateY(0);
-        opacity: 0.25;
-    }
-
-    50% {
-        transform: translateY(-17px);
-        opacity: 0.55;
-    }
+@keyframes floatHeart {
+0%, 100% {
+transform: translateY(0) rotate(-5deg);
 }
 
+```
+50% {
+    transform: translateY(-12px) rotate(5deg);
+}
+```
 
-/* ==============================
-   GUITAR VIDEO
-============================== */
+}
+
+/* =========================
+GUITAR
+========================= */
 
 #guitarScene {
-    position: fixed;
-    inset: 0;
+position: fixed;
+inset: 0;
 
-    width: 100%;
-    height: 100%;
+```
+background: #000;
 
-    display: none;
+display: flex;
+align-items: center;
+justify-content: center;
 
-    align-items: center;
-    justify-content: center;
+opacity: 0;
+visibility: hidden;
 
-    background: #000;
+transition:
+    opacity 1s ease,
+    visibility 1s ease;
+
+z-index: 20;
+```
+
+}
+
+#guitarScene.visible {
+opacity: 1;
+visibility: visible;
 }
 
 #guitarVideo {
-    display: block;
+width: 100%;
+height: 100%;
 
-    width: 100%;
-    height: 100%;
-
-    object-fit: contain;
-}
-
-
-/* ==============================
-   MOBILE
-============================== */
-
-@media (max-width: 600px) {
-
-    #introText {
-        width: 92%;
-
-        font-size: 25px;
-
-        line-height: 1.4;
-    }
-
-    .intro-content {
-        padding: 20px;
-    }
-
-    #lockArea {
-        margin-top: 30px;
-    }
-
-    .lock-message {
-        font-size: 10px;
-    }
-
-    #keypad {
-        grid-template-columns:
-            repeat(3, 54px);
-    }
-
-    #keypad button {
-        width: 54px;
-        height: 45px;
-    }
-
-    .card {
-        width: 91vw;
-        height: 86vh;
-
-        padding:
-            45px 24px;
-    }
-
-    .card-border {
-        inset: 12px;
-    }
-
-    .message-area {
-        font-size: 17px;
-
-        line-height: 1.5;
-    }
-
-    .heart {
-        display: none;
-    }
-}
-
-
-/* ==============================
-   VERY SHORT SCREENS
-============================== */
-
-@media (max-height: 650px) {
-
-    #lockArea {
-        margin-top: 20px;
-    }
-
-    .lock {
-        transform: scale(0.82);
-        margin-top: -8px;
-        margin-bottom: -8px;
-    }
-
-    #pinDisplay {
-        margin-top: 12px;
-    }
-
-    #keypad {
-        margin-top: 12px;
-    }
-
-    .hint {
-        margin-top: 12px;
-    }
-}
 ```
+object-fit: contain;
+
+background: #000;
+```
+
+}
