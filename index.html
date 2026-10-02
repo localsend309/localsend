@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Something Special ♡</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <!-- INTRO -->
@@ -19,86 +17,146 @@
 
             <div id="lockArea" class="lock-area hidden">
 
-    <p class="lock-message">
-        I think there's something waiting for you...
-    </p>
+                <p class="lock-message">
+                    I think there's something waiting for you...
+                </p>
 
-    <!-- PADLOCK -->
-    <div id="lockButton" class="lock-button" aria-label="PIN Lock">
+                <!-- PADLOCK -->
+                <div id="lockButton" class="lock-button" aria-label="PIN Lock">
 
-        <div class="lock-shackle"></div>
+                    <div class="lock-shackle"></div>
 
-        <div class="lock-body">
-            <div class="lock-keyhole"></div>
-            <div class="lock-heart">♡</div>
-        </div>
+                    <div class="lock-body">
+                        <div class="lock-keyhole"></div>
+                        <div class="lock-heart">♡</div>
+                    </div>
 
-    </div>
+                </div>
 
+                <!-- PIN DISPLAY -->
+                <div id="pinDisplay" class="pin-display">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
 
-    <!-- PIN DISPLAY -->
-    <div id="pinDisplay" class="pin-display">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+                <!-- NUMBER KEYPAD -->
+                <div id="keypad" class="keypad">
 
+                    <button data-number="1">1</button>
+                    <button data-number="2">2</button>
+                    <button data-number="3">3</button>
 
-    <!-- NUMBER KEYPAD -->
-    <div id="keypad" class="keypad">
+                    <button data-number="4">4</button>
+                    <button data-number="5">5</button>
+                    <button data-number="6">6</button>
 
-        <button data-number="1">1</button>
-        <button data-number="2">2</button>
-        <button data-number="3">3</button>
+                    <button data-number="7">7</button>
+                    <button data-number="8">8</button>
+                    <button data-number="9">9</button>
 
-        <button data-number="4">4</button>
-        <button data-number="5">5</button>
-        <button data-number="6">6</button>
+                    <button class="empty-key"></button>
+                    <button data-number="0">0</button>
+                    <button id="deleteButton">⌫</button>
 
-        <button data-number="7">7</button>
-        <button data-number="8">8</button>
-        <button data-number="9">9</button>
+                </div>
 
-        <button class="empty-key"></button>
-        <button data-number="0">0</button>
-        <button id="deleteButton">⌫</button>
+                <p class="pin-hint">
+                    hint: <span>our anniversary ♡</span>
+                </p>
 
-    </div>
+                <p id="pinMessage" class="pin-message"></p>
 
-
-    <!-- ANNIVERSARY HINT -->
-    <p class="pin-hint">
-        hint: <span>our anniversary ♡</span>
-    </p>
-
-    <p id="pinMessage" class="pin-message"></p>
-
-</div>
+            </div>
 
         </div>
 
     </section>
 
 
-    <!-- NEXT SECTION -->
-    <section id="birthday" class="screen hidden-section">
+    <!-- AFTER UNLOCK -->
+    <section id="afterLock" class="screen hidden-section">
 
-        <div class="birthday-content">
+        <div class="after-lock-content">
 
-            <p class="small-text">you unlocked it...</p>
-
-            <h1>Happy Birthday ♡</h1>
-
-            <p>
-                But this is only the beginning.
+            <p class="tiny-text">
+                okay...
             </p>
 
+            <p class="begin-text">
+                now we can begin.
+            </p>
+
+            <p class="first-text">
+                but first...
+            </p>
+
+            <button id="enterButton" class="enter-button">
+                ♡ enter
+            </button>
+
         </div>
 
     </section>
+
+
+    <!-- ROMANTIC CARD -->
+    <section id="romanticCard" class="romantic-card hidden-section">
+
+        <div class="card-glow"></div>
+
+        <div class="floating-petal petal-one">♡</div>
+        <div class="floating-petal petal-two">♡</div>
+        <div class="floating-petal petal-three">♡</div>
+        <div class="floating-petal petal-four">♡</div>
+
+        <div class="paper-card">
+
+            <div class="paper-frame"></div>
+
+            <div class="card-decoration top-decoration">
+                <span>♡</span>
+            </div>
+
+            <div class="card-content">
+
+                <div id="messageText" class="message-text"></div>
+
+                <span id="messageCursor" class="message-cursor">|</span>
+
+            </div>
+
+            <div class="card-decoration bottom-decoration">
+                <span>♡</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- GUITAR VIDEO -->
+    <section id="guitarScene" class="guitar-scene hidden-section">
+
+        <video
+            id="guitarVideo"
+            src="guitar.mp4"
+            playsinline
+            preload="auto">
+        </video>
+
+    </section>
+
+
+    <!-- AUDIO -->
+    <audio
+        id="songAudio"
+        src="audio.mp3"
+        preload="auto">
+    </audio>
 
 
     <script src="script.js"></script>
