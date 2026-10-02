@@ -1,22 +1,36 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap');
 
+
+/* =========================
+   BASIC
+========================= */
+
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
+html,
 body {
-    background: #090608;
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
 }
 
+body {
+    background: #080508;
+    color: #f8eaf2;
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   SCREENS
+========================= */
+
 .screen {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
 
     display: flex;
     align-items: center;
@@ -27,39 +41,67 @@ body {
     background:
         radial-gradient(
             circle at center,
-            rgba(255, 105, 180, 0.12),
+            rgba(255, 70, 160, 0.07),
             transparent 45%
         ),
-        #090608;
+        #080508;
 }
 
 .intro-content {
-    text-align: center;
-    width: 90%;
-    max-width: 700px;
-}
-
-.intro-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 5vw, 4rem);
-    font-weight: 400;
-    line-height: 1.25;
-    min-height: 120px;
-
-    text-shadow:
-        0 0 15px rgba(255, 120, 190, 0.4);
-}
-
-.lock-area {
-    margin-top: 30px;
-    animation: appear 1.5s ease forwards;
+    width: 100%;
+    min-height: 100vh;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
+
     text-align: center;
+
+    padding: 30px 20px;
+}
+
+
+/* =========================
+   INTRO TEXT
+========================= */
+
+.intro-text {
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+
+    font-weight: 400;
+
+    color: #f4dce8;
+
+    max-width: 90%;
+
+    margin: 0;
+
+    letter-spacing: 0.02em;
+
+    transition: opacity 1s ease;
+}
+
+
+/* =========================
+   LOCK AREA
+========================= */
+
+.lock-area {
+    margin-top: 30px;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    animation: appear 1.5s ease forwards;
 }
 
 .hidden {
@@ -68,193 +110,556 @@ body {
 
 .lock-message {
     font-family: 'Cormorant Garamond', serif;
+
     font-size: 1.4rem;
+
     color: #e9c8d9;
+
     margin-bottom: 35px;
 }
+
+
+/* =========================
+   PADLOCK
+========================= */
 
 .lock-button {
     position: relative;
 
-    width: 150px;
-    height: 180px;
+    width: 125px;
+    height: 145px;
 
-    border: none;
+    margin: 0 auto;
+
+    cursor: default;
+
     background: transparent;
 
-    cursor: pointer;
+    border: none;
 
-    transition: transform 0.3s ease;
+    padding: 0;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    transform-origin: center center;
+
+    filter:
+        drop-shadow(0 0 10px rgba(255, 80, 170, 0.25));
+
+    transition:
+        transform 1.3s ease,
+        filter 1.3s ease,
+        opacity 0.7s ease;
 }
 
-.lock-button:hover {
-    transform: scale(1.05);
-}
+
+/* =========================
+   SHACKLE
+========================= */
 
 .lock-shackle {
     position: absolute;
 
-    width: 75px;
-    height: 75px;
+    width: 72px;
+    height: 72px;
 
-    left: 37px;
-    top: 5px;
+    left: 50%;
+    top: 3px;
 
-    border: 10px solid #ff72b6;
+    transform: translateX(-50%);
+
+    border: 10px solid #f06ba9;
+
     border-bottom: none;
 
     border-radius: 45px 45px 0 0;
 
-    filter:
-        drop-shadow(0 0 8px rgba(255, 90, 170, 0.8))
-        drop-shadow(0 0 20px rgba(255, 90, 170, 0.35));
+    box-shadow:
+        0 0 8px rgba(255, 75, 165, 0.65),
+        0 0 25px rgba(255, 75, 165, 0.25);
 
-    transform-origin: 15px 65px;
+    transform-origin: 18px 65px;
 
-    transition: transform 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+    transition:
+        transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+
+/* =========================
+   LOCK BODY
+========================= */
 
 .lock-body {
     position: absolute;
 
-    width: 120px;
-    height: 100px;
+    bottom: 0;
 
-    left: 15px;
-    top: 65px;
+    width: 105px;
+    height: 85px;
 
     border-radius: 18px;
 
     background:
         linear-gradient(
             145deg,
-            #ff9acb,
-            #f45b9e 45%,
-            #c93678
+            #ff8bc2,
+            #e94d91 45%,
+            #b92d6c
         );
 
+    border: 1px solid rgba(255, 210, 235, 0.35);
+
     box-shadow:
-        0 0 15px rgba(255, 90, 170, 0.7),
-        0 0 45px rgba(255, 90, 170, 0.35),
-        inset 0 2px 5px rgba(255,255,255,0.35);
+        inset 0 2px 5px rgba(255, 255, 255, 0.25),
+        inset 0 -8px 20px rgba(90, 0, 45, 0.3),
+        0 0 15px rgba(255, 75, 165, 0.4),
+        0 0 45px rgba(255, 75, 165, 0.15);
 
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.lock-keyhole {
-    position: absolute;
 
-    width: 17px;
-    height: 25px;
-
-    background: #5b1838;
-
-    border-radius: 50% 50% 40% 40%;
-    
-    transform: translateY(-2px);
-}
-
-.lock-keyhole::after {
-    content: "";
-
-    position: absolute;
-
-    width: 8px;
-    height: 18px;
-
-    background: #5b1838;
-
-    left: 4.5px;
-    top: 13px;
-}
+/* =========================
+   HEART
+========================= */
 
 .lock-heart {
     position: absolute;
 
-    color: rgba(255,255,255,0.8);
+    top: 10px;
+
+    font-family: 'Cormorant Garamond', serif;
 
     font-size: 25px;
 
-    bottom: 12px;
-}
-
-.tap-text {
-    margin-top: 20px;
-
-    color: #b98a9f;
-
-    font-size: 0.8rem;
-    letter-spacing: 3px;
-
-    text-transform: uppercase;
-}
-
-.unlocking .lock-shackle {
-    transform: rotate(-28deg);
-}
-
-.unlocking {
-    animation: unlockShake 0.5s ease;
-}
-
-.fade-out {
-    animation: fadeOut 1.3s ease forwards;
-}
-
-.hidden-section {
-    display: none;
-}
-
-.birthday-content {
-    text-align: center;
-}
-
-.birthday-content h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3rem, 8vw, 6rem);
-    color: #ff9dcc;
+    color: rgba(255, 240, 248, 0.9);
 
     text-shadow:
-        0 0 20px rgba(255, 100, 180, 0.6);
+        0 0 8px rgba(255, 255, 255, 0.5);
 }
 
-.birthday-content p {
-    margin-top: 15px;
-    color: #d8b9c9;
+
+/* =========================
+   KEYHOLE
+========================= */
+
+.lock-keyhole {
+    position: absolute;
+
+    bottom: 20px;
+
+    width: 15px;
+    height: 15px;
+
+    border-radius: 50%;
+
+    background: #4b1230;
+
+    box-shadow:
+        0 0 5px rgba(60, 0, 30, 0.8);
 }
 
-.small-text {
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    font-size: 0.7rem;
+.lock-keyhole span {
+    position: absolute;
+
+    left: 50%;
+    top: 9px;
+
+    transform: translateX(-50%);
+
+    width: 7px;
+    height: 14px;
+
+    background: #4b1230;
+
+    border-radius: 0 0 5px 5px;
 }
 
-@keyframes appear {
+
+/* =========================
+   PIN DISPLAY
+========================= */
+
+.pin-display {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 9px;
+
+    margin-top: 30px;
+
+    height: 30px;
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+}
+
+.pin-display span {
+    width: 25px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Montserrat', sans-serif;
+
+    font-size: 1rem;
+
+    color: #ffd8eb;
+
+    border-bottom: 1px solid rgba(255, 125, 185, 0.35);
+
+    transition:
+        color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.pin-display span.filled {
+    color: #ff91c5;
+
+    border-bottom-color: #ff75b5;
+
+    transform: translateY(-2px);
+
+    text-shadow:
+        0 0 10px rgba(255, 80, 170, 0.8);
+}
+
+
+/* =========================
+   KEYPAD
+========================= */
+
+.keypad {
+    width: 245px;
+
+    margin-top: 25px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+}
+
+.keypad button {
+    width: 72px;
+    height: 55px;
+
+    border-radius: 14px;
+
+    border: 1px solid
+        rgba(255, 130, 190, 0.2);
+
+    background:
+        rgba(255, 100, 170, 0.055);
+
+    color: #f8dbe9;
+
+    font-family: 'Montserrat', sans-serif;
+
+    font-size: 1rem;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.keypad button:hover {
+    background:
+        rgba(255, 100, 170, 0.14);
+
+    box-shadow:
+        0 0 15px rgba(255, 75, 165, 0.15);
+
+    transform: translateY(-2px);
+}
+
+.keypad button:active {
+    transform: scale(0.92);
+
+    background:
+        rgba(255, 100, 170, 0.2);
+}
+
+.empty-key {
+    visibility: hidden;
+}
+
+
+/* =========================
+   HINT
+========================= */
+
+.pin-hint {
+    margin-top: 22px;
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-style: italic;
+
+    font-size: 1rem;
+
+    color: rgba(235, 190, 212, 0.55);
+
+    letter-spacing: 0.04em;
+}
+
+.pin-hint span {
+    color: rgba(255, 150, 195, 0.75);
+}
+
+
+/* =========================
+   PIN MESSAGE
+========================= */
+
+.pin-message {
+    min-height: 22px;
+
+    margin-top: 8px;
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 1rem;
+
+    color: #f49bc4;
+
+    opacity: 0.9;
+}
+
+
+/* =========================
+   WRONG PIN SHAKE
+========================= */
+
+.lock-button.wrong {
+    animation:
+        lockShake 0.55s ease;
+}
+
+.keypad.wrong {
+    animation:
+        keypadShake 0.55s ease;
+}
+
+.pin-display.wrong {
+    animation:
+        keypadShake 0.55s ease;
+}
+
+@keyframes lockShake {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-9px);
+    }
+
+    40% {
+        transform: translateX(9px);
+    }
+
+    60% {
+        transform: translateX(-7px);
+    }
+
+    80% {
+        transform: translateX(7px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+
+}
+
+@keyframes keypadShake {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-5px);
+    }
+
+    40% {
+        transform: translateX(5px);
+    }
+
+    60% {
+        transform: translateX(-4px);
+    }
+
+    80% {
+        transform: translateX(4px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+
+}
+
+
+/* =========================
+   SUCCESSFUL UNLOCK
+========================= */
+
+/* Shackle slowly opens */
+
+.lock-button.unlocking .lock-shackle {
+    transform:
+        translateX(-50%)
+        rotate(-38deg)
+        translateY(-12px);
+
+    box-shadow:
+        0 0 15px rgba(255, 100, 180, 0.8),
+        0 0 40px rgba(255, 75, 165, 0.45);
+}
+
+
+/* Lock becomes bigger */
+
+.lock-button.unlocked {
+
+    transform:
+        scale(1.65)
+        translateY(-35px);
+
+    filter:
+        drop-shadow(0 0 20px rgba(255, 90, 175, 0.8))
+        drop-shadow(0 0 55px rgba(255, 60, 160, 0.35));
+
+    animation:
+        lockFloat 1.5s ease-in-out infinite alternate;
+}
+
+
+/* Gentle floating */
+
+@keyframes lockFloat {
+
     from {
-        opacity: 0;
-        transform: translateY(20px);
+        transform:
+            scale(1.65)
+            translateY(-35px);
     }
 
     to {
-        opacity: 1;
-        transform: translateY(0);
+        transform:
+            scale(1.65)
+            translateY(-58px);
     }
+
 }
 
-@keyframes unlockShake {
 
-    0% { transform: rotate(0); }
+/* Final pop */
 
-    25% { transform: rotate(-3deg); }
+.lock-button.pop-away {
 
-    50% { transform: rotate(3deg); }
+    animation:
+        lockPop 0.8s
+        cubic-bezier(0.2, 0.8, 0.2, 1)
+        forwards;
+}
 
-    75% { transform: rotate(-2deg); }
+@keyframes lockPop {
 
-    100% { transform: rotate(0); }
+    0% {
 
+        transform:
+            scale(1.65)
+            translateY(-58px);
+
+        opacity: 1;
+
+        filter:
+            drop-shadow(0 0 25px rgba(255, 100, 180, 0.9));
+    }
+
+    35% {
+
+        transform:
+            scale(2.05)
+            translateY(-70px);
+
+        opacity: 1;
+
+        filter:
+            drop-shadow(0 0 45px rgba(255, 120, 195, 1));
+    }
+
+    70% {
+
+        transform:
+            scale(1.5)
+            translateY(-80px);
+
+        opacity: 0.7;
+    }
+
+    100% {
+
+        transform:
+            scale(0.05)
+            translateY(-120px);
+
+        opacity: 0;
+
+        filter:
+            drop-shadow(0 0 0 transparent);
+    }
+
+}
+
+
+/* =========================
+   FADE CONTROLS
+========================= */
+
+.keypad.fade-away,
+.pin-display.fade-away {
+
+    opacity: 0;
+
+    transform:
+        translateY(20px);
+
+    pointer-events: none;
+}
+
+
+/* =========================
+   INTRO FADE
+========================= */
+
+.fade-out {
+
+    animation:
+        fadeOut 1.1s ease forwards;
 }
 
 @keyframes fadeOut {
@@ -265,6 +670,86 @@ body {
 
     to {
         opacity: 0;
+    }
+
+}
+
+
+/* =========================
+   NEXT SCREEN
+========================= */
+
+.hidden-section {
+    display: none;
+}
+
+.after-lock-content,
+.birthday-content {
+
+    text-align: center;
+
+    padding: 30px;
+
+    animation:
+        appear 2s ease forwards;
+}
+
+.tiny-text {
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 1.3rem;
+
+    color: #dca8c2;
+}
+
+.begin-text {
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 2.2rem;
+
+    color: #f8ddea;
+}
+
+.little-heart {
+
+    margin-top: 30px;
+
+    font-size: 2rem;
+
+    color: #ff75b5;
+
+    text-shadow:
+        0 0 20px rgba(255, 75, 165, 0.7);
+
+}
+
+
+/* =========================
+   GENERAL ANIMATION
+========================= */
+
+@keyframes appear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
     }
 
 }
