@@ -65,18 +65,20 @@ body {
 }
 
 #introText {
+    width: 100%;
+    max-width: 900px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
     min-height: 45px;
 
-    font-size:
-        clamp(
-            24px,
-            4vw,
-            38px
-        );
+    font-size: clamp(24px, 4vw, 38px);
 
     line-height: 1.4;
-
-    transition: opacity 0.4s ease;
 }
 
 .cursor {
