@@ -1,5 +1,5 @@
-```html
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,144 +10,128 @@
 
 <body>
 
-    <!-- INTRO -->
-    <section id="intro">
+```
+<!-- INTRO -->
+<section id="intro">
 
-        <div class="intro-content">
+    <div class="intro-content">
 
-            <div id="introText"></div>
+        <div id="introText"></div>
 
-            <div id="lockArea">
+        <div id="lockArea">
 
-                <p class="lock-message">
-                    I think there's something waiting for you...
-                </p>
+            <p class="lock-message">
+                I think there's something waiting for you...
+            </p>
 
-                <div id="lockButton" class="lock">
+            <div id="lockButton" class="lock" aria-label="PIN Lock">
 
-                    <div class="shackle"></div>
+                <div class="shackle"></div>
 
-                    <div class="lock-body">
-                        <div class="keyhole"></div>
-                        <div class="lock-heart">♡</div>
-                    </div>
-
+                <div class="lock-body">
+                    <div class="keyhole"></div>
+                    <div class="lock-heart">♡</div>
                 </div>
-
-                <div id="pinDisplay">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-
-                <div id="keypad">
-
-                    <button data-number="1">1</button>
-                    <button data-number="2">2</button>
-                    <button data-number="3">3</button>
-
-                    <button data-number="4">4</button>
-                    <button data-number="5">5</button>
-                    <button data-number="6">6</button>
-
-                    <button data-number="7">7</button>
-                    <button data-number="8">8</button>
-                    <button data-number="9">9</button>
-
-                    <button class="empty"></button>
-                    <button data-number="0">0</button>
-                    <button id="deleteButton">⌫</button>
-
-                </div>
-
-                <p class="hint">
-                    hint: <span>our anniversary ♡</span>
-                </p>
-
-                <p id="pinMessage"></p>
 
             </div>
 
-        </div>
+            <div id="pinDisplay">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
 
-    </section>
+            <div id="keypad">
 
+                <button data-number="1">1</button>
+                <button data-number="2">2</button>
+                <button data-number="3">3</button>
 
-    <!-- AFTER UNLOCK -->
+                <button data-number="4">4</button>
+                <button data-number="5">5</button>
+                <button data-number="6">6</button>
 
-    <section id="afterLock">
+                <button data-number="7">7</button>
+                <button data-number="8">8</button>
+                <button data-number="9">9</button>
 
-        <div class="after-content">
-
-            <p class="small-text">okay...</p>
-
-            <h1>now we can begin.</h1>
-
-            <p class="first-text">but first...</p>
-
-            <button id="enterButton">♡ enter</button>
-
-        </div>
-
-    </section>
-
-
-    <!-- ROMANTIC CARD -->
-
-    <section id="romanticCard">
-
-        <div class="heart heart1">♡</div>
-        <div class="heart heart2">♡</div>
-        <div class="heart heart3">♡</div>
-        <div class="heart heart4">♡</div>
-
-        <div class="card">
-
-            <div class="card-border"></div>
-
-            <div class="card-top">♡</div>
-
-            <div class="message-area">
-
-                <span id="messageText"></span><span id="messageCursor">|</span>
+                <button class="empty"></button>
+                <button data-number="0">0</button>
+                <button id="deleteButton">⌫</button>
 
             </div>
 
-            <div class="card-bottom">♡</div>
+            <p class="hint">
+                hint: <span>our anniversary ♡</span>
+            </p>
+
+            <p id="pinMessage"></p>
 
         </div>
 
-    </section>
+    </div>
 
+</section>
 
-    <!-- GUITAR VIDEO -->
+<!-- AFTER UNLOCK -->
+<section id="afterLock">
+    <div class="after-content">
+        <p class="small-text">okay...</p>
+        <h1>now we can begin.</h1>
+        <p class="first-text">but first...</p>
+        <button id="enterButton">♡ enter</button>
+    </div>
+</section>
 
-    <section id="guitarScene">
+<!-- ROMANTIC CARD -->
+<section id="romanticCard">
 
-        <video
-            id="guitarVideo"
-            src="guitar.mp4"
-            playsinline
-            preload="auto">
-        </video>
+    <div class="heart heart1">♡</div>
+    <div class="heart heart2">♡</div>
+    <div class="heart heart3">♡</div>
+    <div class="heart heart4">♡</div>
 
-    </section>
+    <div class="card">
 
+        <div class="card-border"></div>
 
-    <!-- SONG -->
+        <div class="card-top">♡</div>
 
-    <audio
-        id="songAudio"
-        src="audio.mp3"
+        <div class="message-area">
+            <span id="messageText"></span>
+            <span id="messageCursor">|</span>
+        </div>
+
+        <div class="card-bottom">♡</div>
+
+    </div>
+
+</section>
+
+<!-- GUITAR VIDEO -->
+<section id="guitarScene">
+
+    <video
+        id="guitarVideo"
+        src="guitar.mp4"
+        playsinline
         preload="auto">
-    </audio>
+    </video>
 
+</section>
 
-    <script src="script.js"></script>
+<!-- SONG -->
+<audio
+    id="songAudio"
+    src="audio.mp3"
+    preload="auto">
+</audio>
+
+<script src="script.js"></script>
+```
 
 </body>
 </html>
-```
